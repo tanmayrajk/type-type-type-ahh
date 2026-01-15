@@ -1,0 +1,88 @@
+[gd_scene load_steps=9 format=3 uid="uid://dkevlwt527"]
+
+[ext_resource type="Script" uid="uid://c8yxx5fdhq5w1" path="res://scripts/enemy.gd" id="1_7p1mj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0wfyh"]
+albedo_color = Color(1, 0.37254903, 0.8117647, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_sugp2"]
+material = SubResource("StandardMaterial3D_0wfyh")
+size = Vector3(1, 1.5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jyhfs"]
+size = Vector3(1, 1.5, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tbgi4"]
+albedo_color = Color(0.6, 0.16078432, 0.91764706, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tefeu"]
+material = SubResource("StandardMaterial3D_tbgi4")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_8tegq"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="LabelSettings" id="LabelSettings_7p1mj"]
+font_size = 26
+font_color = Color(0, 1, 0, 1)
+
+[node name="enemy" type="CharacterBody3D"]
+script = ExtResource("1_7p1mj")
+
+[node name="mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_sugp2")
+
+[node name="collider" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_jyhfs")
+
+[node name="eyes" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.85, 0, 0, 0, 0.19999999, 0, 0, 0, 1, 0, 0.5, 0.2)
+mesh = SubResource("BoxMesh_tefeu")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_8tegq")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(100, 100)
+
+[node name="Control" type="Control" parent="SubViewport"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="SubViewport/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.5
+offset_top = -11.5
+offset_right = 27.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "haiii :3"
+label_settings = SubResource("LabelSettings_7p1mj")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="move timer" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true
+
+[node name="stop timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="move timer" to="." method="_on_move_timer_timeout"]
+[connection signal="timeout" from="stop timer" to="." method="_on_stop_timer_timeout"]
