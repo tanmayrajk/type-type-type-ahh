@@ -31,12 +31,18 @@ func spawn_enemy_with_random_target():
 		return
 	var actually_possible_targets = []
 	for t in manager.possible_targets:
-		if manager.available_targets.is_empty():
+		var actually_available_targets = manager.available_targets + [manager.selected_target]
+		actually_available_targets = actually_available_targets.filter(func(d): return not d.is_empty())
+		if actually_available_targets.is_empty():
 			actually_possible_targets.append(t)
 			continue
+			
+		#print(manager.available_targets)
+		#print([manager.selected_target])
+		#print(actually_available_targets)
 		
 		var exists := false
-		for a in manager.available_targets:
+		for a in actually_available_targets:
 			if t[0] == a.target[0]:
 				exists = true
 				

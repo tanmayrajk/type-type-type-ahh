@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dp71eyj0st1go"]
+[gd_scene load_steps=16 format=3 uid="uid://dp71eyj0st1go"]
 
 [ext_resource type="Script" uid="uid://cj5x1shegwiqy" path="res://scripts/manager.gd" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://d0bo6wy85c4j5" path="res://scripts/player.gd" id="2_0wfyh"]
@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://be5porreojadn" path="res://scripts/enemy_spawner.gd" id="4_jyhfs"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sgp6g"]
-albedo_color = Color(0, 0, 0, 1)
+albedo_color = Color(0.21003503, 0.7072164, 0.3808487, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_7dm0k"]
 material = SubResource("StandardMaterial3D_sgp6g")
@@ -27,9 +27,9 @@ height = 4.0
 radius = 1.0
 height = 4.0
 
-[sub_resource type="Environment" id="Environment_0wfyh"]
+[sub_resource type="Environment" id="Environment_tbgi4"]
 background_mode = 1
-background_color = Color(0.98039216, 0.92156863, 0.57254905, 1)
+background_color = Color(0.98039216, 0.3137255, 0.57254905, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sugp2"]
 albedo_color = Color(0.49019608, 0.70980394, 0.78039217, 1)
@@ -37,6 +37,8 @@ albedo_color = Color(0.49019608, 0.70980394, 0.78039217, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_jyhfs"]
 material = SubResource("StandardMaterial3D_sugp2")
 size = Vector3(1.25, 0.5, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tbgi4"]
 
 [node name="main" type="Node3D"]
 script = ExtResource("1_o5qli")
@@ -63,7 +65,7 @@ shape = SubResource("CapsuleShape3D_sugp2")
 
 [node name="cam" type="Camera3D" parent="player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0999999, -0.7)
-environment = SubResource("Environment_0wfyh")
+environment = SubResource("Environment_tbgi4")
 
 [node name="Control" type="Control" parent="player/cam"]
 layout_mode = 3
@@ -118,5 +120,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.2, 3.9, 0)
 
 [node name="Timer" type="Timer" parent="enemy_spawner"]
 one_shot = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(10.45, 0, 0, 0, 7.3, 0, 0, 0, 16.72, 0, 7, 0)
+mesh = SubResource("BoxMesh_tbgi4")
 
 [connection signal="timeout" from="enemy_spawner/Timer" to="enemy_spawner" method="_on_timer_timeout"]

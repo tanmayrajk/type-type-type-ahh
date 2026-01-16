@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dkevlwt527"]
+[gd_scene load_steps=9 format=3 uid="uid://dkevlwt527"]
 
 [ext_resource type="Script" uid="uid://c8yxx5fdhq5w1" path="res://scripts/enemy.gd" id="1_7p1mj"]
 [ext_resource type="Texture2D" uid="uid://rk5vl65elg5l" path="res://assets/man.png" id="2_md0e3"]
@@ -22,10 +22,6 @@ material = SubResource("StandardMaterial3D_tbgi4")
 [sub_resource type="ViewportTexture" id="ViewportTexture_8tegq"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="LabelSettings" id="LabelSettings_7p1mj"]
-font_size = 40
-font_color = Color(0, 1, 0, 1)
-
 [node name="enemy" type="CharacterBody3D"]
 script = ExtResource("1_7p1mj")
 
@@ -42,7 +38,7 @@ visible = false
 mesh = SubResource("BoxMesh_tefeu")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8000002, 0)
 billboard = 2
 render_priority = 2
 texture = SubResource("ViewportTexture_8tegq")
@@ -55,36 +51,28 @@ texture = ExtResource("2_md0e3")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
-size = Vector2i(300, 100)
+size = Vector2i(400, 100)
 
 [node name="Control" type="Control" parent="SubViewport"]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="SubViewport/Control"]
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewport/Control"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -27.5
-offset_top = -11.5
-offset_right = 27.5
-offset_bottom = 11.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "haiii :3"
-label_settings = SubResource("LabelSettings_7p1mj")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
-uppercase = true
 
 [node name="move timer" type="Timer" parent="."]
 wait_time = 2.5

@@ -4,7 +4,7 @@ extends CharacterBody3D
 @export var min_dist = 10.0
 var can_move := true
 
-@onready var target_label := $SubViewport/Control/Label
+@onready var target_label := $SubViewport/Control/RichTextLabel
 var target: String
 
 var slot: Node3D
@@ -36,10 +36,25 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
+func _process(delta: float) -> void:
+	var main = get_parent()
+	
+	if not main:
+		return
+		
+	if target and not main.selected_target.is_empty() and target == main.selected_target.target:
+		var completed_part = target.substr(0, main.current_pos)
+		var left_part = target.substr(main.current_pos, len(target) - main.current_pos)
+		print([completed_part, left_part])
+		$SubViewport/Control/RichTextLabel.text = "[color=red]" + completed_part + "[/color]" + left_part
+		return
+	
+	$SubViewport/Control/RichTextLabel.text = target
+
 func set_target(t: String):
 	#print(target_label)
 	target = t
-	target_label.text = target
+	$SubViewport/Control/RichTextLabel.text = target
 	
 func set_slot(s: Node3D):
 	slot = s

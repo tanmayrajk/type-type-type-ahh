@@ -2,6 +2,7 @@ extends Node3D
 
 
 var possible_targets: Array[String] = ["apple", "cat", "dog", "boy", "mathematics", "electronics", "algebra", "handkerchief", "science", "chemistry", "instagram", "youtube", "affirmation"]
+#var possible_targets: Array[String] = ["kareem"]
 #var available_targets: Array[String] = []
 var available_targets: Array[Dictionary] = []
 var selected_target: Dictionary = {}
