@@ -37,7 +37,7 @@ func _input(event: InputEvent) -> void:
 				}
 				#main.selected_target = main.available_targets[(main.available_targets as Array).find(target)]
 				main.current_pos = 1
-				print([main.selected_target.target, main.current_pos])
+				#print([main.selected_target.target, main.current_pos])
 				found = true
 		if not found:
 			print("NO TARGETS AVAILABLE!")
@@ -45,7 +45,7 @@ func _input(event: InputEvent) -> void:
 		if main.selected_target.target[main.current_pos].to_upper() == event.as_text_key_label():
 			if main.current_pos != (main.selected_target.target as String).length() - 1:
 				main.current_pos += 1
-				print([main.selected_target.target, main.current_pos])
+				#print([main.selected_target.target, main.current_pos])
 			else:
 				var i = -1
 				for idx in main.available_targets.size():
@@ -64,3 +64,6 @@ func _input(event: InputEvent) -> void:
 					main.current_pos = 0
 		else:
 			print("ERROR!")
+			
+#
+	

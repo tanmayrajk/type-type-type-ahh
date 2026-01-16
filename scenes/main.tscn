@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://dp71eyj0st1go"]
+[gd_scene load_steps=15 format=3 uid="uid://dp71eyj0st1go"]
 
 [ext_resource type="Script" uid="uid://cj5x1shegwiqy" path="res://scripts/manager.gd" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://d0bo6wy85c4j5" path="res://scripts/player.gd" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://dkevlwt527" path="res://scenes/enemy.tscn" id="3_sugp2"]
+[ext_resource type="Texture2D" uid="uid://j5f5x3armp17" path="res://assets/gun.png" id="3_tbgi4"]
 [ext_resource type="Script" uid="uid://be5porreojadn" path="res://scripts/enemy_spawner.gd" id="4_jyhfs"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sgp6g"]
@@ -64,23 +65,44 @@ shape = SubResource("CapsuleShape3D_sugp2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0999999, -0.7)
 environment = SubResource("Environment_0wfyh")
 
+[node name="Control" type="Control" parent="player/cam"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="player/cam/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -123.0
+offset_top = -250.0
+offset_right = 377.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_tbgi4")
+stretch_mode = 4
+
 [node name="head" type="MeshInstance3D" parent="player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1000004, -0.6)
 mesh = SubResource("BoxMesh_jyhfs")
 
 [node name="head2" type="MeshInstance3D" parent="player"]
 transform = Transform3D(0.4, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.30000043, -1.5999985)
+visible = false
 mesh = SubResource("BoxMesh_jyhfs")
 
 [node name="enemy_spawner" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 22.300001)
 script = ExtResource("4_jyhfs")
 enemy = ExtResource("3_sugp2")
-
-[node name="Node3D" type="Node3D" parent="enemy_spawner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.5, 3.9, 0)
-
-[node name="Node3D8" type="Node3D" parent="enemy_spawner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.7, 3.9, 0)
 
 [node name="Node3D2" type="Node3D" parent="enemy_spawner"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.7, 3.9, 0)
@@ -93,12 +115,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 3.9, 0)
 
 [node name="Node3D5" type="Node3D" parent="enemy_spawner"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.2, 3.9, 0)
-
-[node name="Node3D6" type="Node3D" parent="enemy_spawner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.9, 3.9, 0)
-
-[node name="Node3D7" type="Node3D" parent="enemy_spawner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.300003, 3.9, 0)
 
 [node name="Timer" type="Timer" parent="enemy_spawner"]
 one_shot = true

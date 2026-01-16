@@ -1,10 +1,13 @@
 extends CharacterBody3D
 
 @export var speed = 5.0
+@export var min_dist = 10.0
 var can_move := true
 
 @onready var target_label := $SubViewport/Control/Label
 var target: String
+
+var slot: Node3D
 
 func _ready() -> void:
 	$"move timer".start()
@@ -12,10 +15,15 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	var player = get_tree().current_scene.find_child("player")
 	
+	#print(global_position.distance_to(player.global_position))
+	if global_position.distance_to(player.global_position) <= min_dist:
+		can_move = false
+	
 	if not is_on_floor():
 		velocity.y += get_gravity().y * delta
 	
 	var direction = (player.global_position - global_position)
+	
 	direction.y = 0
 	direction = direction.normalized()
 	
@@ -33,6 +41,9 @@ func set_target(t: String):
 	target = t
 	target_label.text = target
 	
+func set_slot(s: Node3D):
+	slot = s
+	
 func _on_move_timer_timeout() -> void:
 	can_move = false
 	$"stop timer".start()
@@ -40,3 +51,8 @@ func _on_move_timer_timeout() -> void:
 func _on_stop_timer_timeout() -> void:
 	can_move = true
 	$"move timer".start()
+
+
+func _on_tree_exiting() -> void:
+	var enemy_spawner = get_tree().current_scene.find_child("enemy_spawner")
+	enemy_spawner.add_available_slots(slot)

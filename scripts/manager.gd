@@ -7,13 +7,14 @@ var available_targets: Array[Dictionary] = []
 var selected_target: Dictionary = {}
 var current_pos: int = 0
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$player.set_main(self)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if selected_target.is_empty():
+		return
+	#print(selected_target)
+	((selected_target.enemy as CharacterBody3D).find_child("body") as Sprite3D).modulate = Color("ff5bff")
 	
 func get_available_targets():
 	return available_targets
