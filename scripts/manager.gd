@@ -1,7 +1,10 @@
 extends Node3D
 
-var available_targets: Array[String] = ["apple", "cat"]
-var selected_target: String = ""
+
+var possible_targets: Array[String] = ["apple", "cat", "dog", "boy", "mathematics", "electronics", "algebra", "handkerchief", "science", "chemistry", "instagram", "youtube", "affirmation"]
+#var available_targets: Array[String] = []
+var available_targets: Array[Dictionary] = []
+var selected_target: Dictionary = {}
 var current_pos: int = 0
 
 # Called when the node enters the scene tree for the first time.

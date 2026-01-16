@@ -3,6 +3,9 @@ extends CharacterBody3D
 @export var speed = 5.0
 var can_move := true
 
+@onready var target_label := $SubViewport/Control/Label
+var target: String
+
 func _ready() -> void:
 	$"move timer".start()
 
@@ -24,12 +27,15 @@ func _physics_process(delta: float) -> void:
 		velocity.z = 0
 	
 	move_and_slide()
-	
+
+func set_target(t: String):
+	#print(target_label)
+	target = t
+	target_label.text = target
 	
 func _on_move_timer_timeout() -> void:
 	can_move = false
 	$"stop timer".start()
-
 
 func _on_stop_timer_timeout() -> void:
 	can_move = true

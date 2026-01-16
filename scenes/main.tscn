@@ -72,15 +72,6 @@ mesh = SubResource("BoxMesh_jyhfs")
 transform = Transform3D(0.4, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.30000043, -1.5999985)
 mesh = SubResource("BoxMesh_jyhfs")
 
-[node name="enemy" parent="." instance=ExtResource("3_sugp2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 5, -39)
-
-[node name="enemy3" parent="." instance=ExtResource("3_sugp2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 10, -21)
-
-[node name="enemy2" parent="." instance=ExtResource("3_sugp2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -42)
-
 [node name="enemy_spawner" type="Node3D" parent="."]
 script = ExtResource("4_jyhfs")
 enemy = ExtResource("3_sugp2")
@@ -110,3 +101,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.9, 3.9, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.300003, 3.9, 0)
 
 [node name="Timer" type="Timer" parent="enemy_spawner"]
+one_shot = true
+
+[connection signal="timeout" from="enemy_spawner/Timer" to="enemy_spawner" method="_on_timer_timeout"]
