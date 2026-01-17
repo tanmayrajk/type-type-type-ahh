@@ -17,6 +17,7 @@ func _physics_process(delta: float) -> void:
 	
 	#print(global_position.distance_to(player.global_position))
 	if global_position.distance_to(player.global_position) <= min_dist:
+		#$AnimationPlayer.play("attack")
 		can_move = false
 	
 	if not is_on_floor():
@@ -28,9 +29,11 @@ func _physics_process(delta: float) -> void:
 	direction = direction.normalized()
 	
 	if can_move:
+		$AnimationPlayer.play("run")
 		velocity.x = direction.x * speed
 		velocity.z = direction.z * speed
 	else:
+		$AnimationPlayer.play("idle")
 		velocity.x = 0
 		velocity.z = 0
 	
@@ -45,7 +48,6 @@ func _process(delta: float) -> void:
 	if target and not main.selected_target.is_empty() and target == main.selected_target.target:
 		var completed_part = target.substr(0, main.current_pos)
 		var left_part = target.substr(main.current_pos, len(target) - main.current_pos)
-		print([completed_part, left_part])
 		$SubViewport/Control/RichTextLabel.text = "[color=red]" + completed_part + "[/color]" + left_part
 		return
 	

@@ -29,6 +29,7 @@ func _input(event: InputEvent) -> void:
 	#print((event as InputEventKey).as_text_key_label())
 	if Input.is_action_just_pressed("cancel"):
 		if not main.selected_target.is_empty():
+			main.selected_target.enemy.find_child("body").modulate = Color("ffffff")
 			main.available_targets.append(main.selected_target)
 			main.selected_target = {}
 			main.current_pos = 0
@@ -37,6 +38,7 @@ func _input(event: InputEvent) -> void:
 	var found := false
 	if not main.selected_target or main.selected_target.is_empty():
 		for target in main.available_targets:
+			$AnimationPlayer.play("shoot")
 			if (target.target[0] as String).to_upper() == (event as InputEventKey).as_text_key_label():
 				main.selected_target = {
 					"target": main.available_targets[(main.available_targets as Array).find(target)].target,
@@ -51,6 +53,7 @@ func _input(event: InputEvent) -> void:
 			print("NO TARGETS AVAILABLE!")
 	else:
 		if main.selected_target.target[main.current_pos].to_upper() == event.as_text_key_label():
+			$AnimationPlayer.play("shoot")
 			if main.current_pos != (main.selected_target.target as String).length() - 1:
 				main.current_pos += 1
 				#print([main.selected_target.target, main.current_pos])
@@ -63,8 +66,8 @@ func _input(event: InputEvent) -> void:
 				#print(i)
 				#var i = (main.available_targets as Array[Dictionary]).find(main.selected_target as Dictionary)
 				#if i != -1:
-				print([main.selected_target.target, main.selected_target.target.length()])
-				print("TARGET " + main.selected_target.target.to_upper() + " DESTROYED!")
+				#print([main.selected_target.target, main.selected_target.target.length()])
+				#print("TARGET " + main.selected_target.target.to_upper() + " DESTROYED!")
 				#(main.available_targets as Array[Dictionary]).remove_at(i)
 				main.selected_target.enemy.queue_free()
 				#print(main.selected_target.enemy)
@@ -75,3 +78,8 @@ func _input(event: InputEvent) -> void:
 			
 #
 	
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "shoot":
+		$AnimationPlayer.play("idle")

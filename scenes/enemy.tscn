@@ -1,7 +1,19 @@
-[gd_scene load_steps=9 format=3 uid="uid://dkevlwt527"]
+[gd_scene load_steps=26 format=3 uid="uid://dkevlwt527"]
 
 [ext_resource type="Script" uid="uid://c8yxx5fdhq5w1" path="res://scripts/enemy.gd" id="1_7p1mj"]
 [ext_resource type="Texture2D" uid="uid://rk5vl65elg5l" path="res://assets/man.png" id="2_md0e3"]
+[ext_resource type="Texture2D" uid="uid://bh7qv6gfj8vyu" path="res://assets/man-attack.png" id="3_4ra3w"]
+[ext_resource type="Texture2D" uid="uid://bxge5fmmd1ol8" path="res://assets/frame_00_delay-0.06s_converted-removebg-preview.png" id="4_j0cyh"]
+[ext_resource type="Texture2D" uid="uid://ciaqupmbgm48e" path="res://assets/frame_01_delay-0.06s_converted-removebg-preview.png" id="5_g0wcc"]
+[ext_resource type="Texture2D" uid="uid://beywgfccsus8r" path="res://assets/frame_02_delay-0.06s_converted-removebg-preview.png" id="6_s1ycm"]
+[ext_resource type="Texture2D" uid="uid://d116u38b88wcv" path="res://assets/frame_03_delay-0.06s_converted-removebg-preview.png" id="7_shcg2"]
+[ext_resource type="Texture2D" uid="uid://p1xxs7xaqehl" path="res://assets/frame_04_delay-0.06s_converted-removebg-preview.png" id="8_ile5s"]
+[ext_resource type="Texture2D" uid="uid://cqfvv64p43ohg" path="res://assets/frame_05_delay-0.06s_converted-removebg-preview.png" id="9_1x4g4"]
+[ext_resource type="Texture2D" uid="uid://bwb6xu4fjngek" path="res://assets/frame_06_delay-0.06s_converted-removebg-preview.png" id="10_2pwtc"]
+[ext_resource type="Texture2D" uid="uid://c8g2fnc17vd0v" path="res://assets/frame_07_delay-0.06s_converted-removebg-preview.png" id="11_rogs8"]
+[ext_resource type="Texture2D" uid="uid://bljd33i4lpn7w" path="res://assets/frame_08_delay-0.06s_converted-removebg-preview.png" id="12_wrm80"]
+[ext_resource type="Texture2D" uid="uid://0doei5mfkumu" path="res://assets/frame_09_delay-0.06s_converted-removebg-preview.png" id="13_6awcb"]
+[ext_resource type="Texture2D" uid="uid://v6csfxyo4608" path="res://assets/frame_10_delay-0.06s_converted-removebg-preview.png" id="14_wjec0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0wfyh"]
 albedo_color = Color(1, 0.37254903, 0.8117647, 1)
@@ -22,8 +34,176 @@ material = SubResource("StandardMaterial3D_tbgi4")
 [sub_resource type="ViewportTexture" id="ViewportTexture_8tegq"]
 viewport_path = NodePath("SubViewport")
 
+[sub_resource type="Animation" id="Animation_md0e3"]
+resource_name = "idle"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1.1, 0.9, 1), Vector3(1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 2.2, 0), Vector3(0, 1.905, 0), Vector3(0, 2.2, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_md0e3"), ExtResource("2_md0e3")]
+}
+
+[sub_resource type="Animation" id="Animation_4ra3w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 2.2, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_md0e3")]
+}
+
+[sub_resource type="Animation" id="Animation_5uy6h"]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_4ra3w")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.2, 1.9000001, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.15, 1.15, 1.15)]
+}
+
+[sub_resource type="Animation" id="Animation_i4rgx"]
+resource_name = "run"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.10000001, 0.20000002, 0.3, 0.40000004, 0.5, 0.6, 0.70000005, 0.8000001, 0.90000004, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("4_j0cyh"), ExtResource("5_g0wcc"), ExtResource("6_s1ycm"), ExtResource("7_shcg2"), ExtResource("8_ile5s"), ExtResource("9_1x4g4"), ExtResource("10_2pwtc"), ExtResource("11_rogs8"), ExtResource("12_wrm80"), ExtResource("13_6awcb"), ExtResource("14_wjec0")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.10000001, 0.20000002, 0.3, 0.40000004, 0.5, 0.6, 0.70000005, 0.8000001, 0.90000004, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.10000001, 2.1000001, 0), Vector3(0.10000001, 2.1000001, 0), Vector3(0.10000001, 2.1000001, 0), Vector3(0.10000001, 2.1000001, 0), Vector3(0.20000002, 2.1000001, 0), Vector3(0.3, 2.1000001, 0), Vector3(0.4, 2.1000001, 0), Vector3(0.4, 2.1000001, 0), Vector3(0.39999998, 2.1000001, 0), Vector3(0.45, 2.1000001, 0), Vector3(0.5, 2.1000001, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(2.4149997, 2.4149997, 1.15), Vector3(2.4149997, 2.4149997, 1.15)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5uy6h"]
+_data = {
+&"RESET": SubResource("Animation_4ra3w"),
+&"attack": SubResource("Animation_5uy6h"),
+&"idle": SubResource("Animation_md0e3"),
+&"run": SubResource("Animation_i4rgx")
+}
+
 [node name="enemy" type="CharacterBody3D"]
 script = ExtResource("1_7p1mj")
+speed = 10.0
 
 [node name="mesh" type="MeshInstance3D" parent="."]
 visible = false
@@ -48,6 +228,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
 billboard = 2
 render_priority = 1
 texture = ExtResource("2_md0e3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../body")
+libraries = {
+&"": SubResource("AnimationLibrary_5uy6h")
+}
+autoplay = "idle"
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true

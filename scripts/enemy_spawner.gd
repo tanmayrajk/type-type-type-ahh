@@ -14,7 +14,7 @@ func _ready() -> void:
 			available_slots.append(child)
 			
 	spawn_enemy_with_random_target()
-	$Timer.start(randf_range(1, 1.5))
+	$Timer.start(randf_range(0.55, 0.65))
 	
 func spawn_enemy(target: String) -> CharacterBody3D:
 	var rand_slot = available_slots[randi_range(0, available_slots.size() - 1)]
@@ -37,10 +37,6 @@ func spawn_enemy_with_random_target():
 			actually_possible_targets.append(t)
 			continue
 			
-		#print(manager.available_targets)
-		#print([manager.selected_target])
-		#print(actually_available_targets)
-		
 		var exists := false
 		for a in actually_available_targets:
 			if t[0] == a.target[0]:
@@ -60,18 +56,13 @@ func spawn_enemy_with_random_target():
 		"enemy": e
 	})
 	manager.possible_targets.remove_at(i)
-	#print(manager.available_targets)
-	var available_targets = []
-	for target in manager.available_targets:
-		available_targets.append(target.target)
-	print(available_targets)
 	
 func add_available_slots(slot: Node3D):
 	if slot in slots and slot not in available_slots:
 		available_slots.append(slot)
 
 func _on_timer_timeout() -> void:
-	var rand_time = randf_range(1, 1.5)
+	var rand_time = randf_range(0.55, 0.65)
 	if len(available_slots) <= 0:
 		$Timer.start(rand_time)
 		return
