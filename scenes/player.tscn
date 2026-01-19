@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://bm3hnivstlo5d"]
+
+[ext_resource type="Texture2D" uid="uid://dghw6xc5culj6" path="res://aseprites/player.png" id="1_g2els"]
+[ext_resource type="Texture2D" uid="uid://dcmoq868cxrcv" path="res://aseprites/gun.png" id="2_qhqgy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0wfyh"]
+atlas = ExtResource("1_g2els")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sugp2"]
+atlas = ExtResource("1_g2els")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jyhfs"]
+atlas = ExtResource("1_g2els")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tbgi4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0wfyh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sugp2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jyhfs")
+}],
+"loop": true,
+"name": &"default",
+"speed": 9.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tefeu"]
+radius = 17.0
+height = 82.0
+
+[node name="player" type="CharacterBody2D" groups=["player"]]
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_tbgi4")
+autoplay = "default"
+frame_progress = 0.4691508
+metadata/_edit_lock_ = true
+
+[node name="collider" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1.445)
+shape = SubResource("CapsuleShape2D_tefeu")
+metadata/_edit_lock_ = true
+
+[node name="weapon_pivot" type="Node2D" parent="."]
+position = Vector2(0, 6)
+metadata/_edit_lock_ = true
+
+[node name="sprite" type="Sprite2D" parent="weapon_pivot"]
+position = Vector2(6.725, 0)
+scale = Vector2(3, 3)
+texture = ExtResource("2_qhqgy")
+metadata/_edit_lock_ = true
