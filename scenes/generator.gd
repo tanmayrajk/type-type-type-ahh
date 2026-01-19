@@ -7,15 +7,35 @@ extends Node2D
 @export var file: JSON
 
 func get_random_spawn_point() -> Node2D:
-	var rand_index = randi_range(0, spawn_points.size() - 1)
-	return spawn_points[rand_index]
+	return spawn_points.pick_random()
+	
+func get_random_caption() -> String:
+	var present_words: Array[String] = get_parent().present_words
+	var words: Array = file.data.words
+	
+	if present_words.is_empty():
+		return words.pick_random()
+		
+	var used_letters: Array[String] = []
+	for word in present_words:
+		if word[0].to_lower() not in used_letters:
+			used_letters.append(word[0])
+			
+	var possible_words: Array[String] = []
+	for word in words:
+		if word[0].to_lower() not in used_letters:
+			possible_words.append(word)
+			
+	return possible_words.pick_random()
 	
 func spawn_gangsta():
-	var rand_gangsta_index = randi_range(0, gang.size() - 1)
-	var gangsta = gang[rand_gangsta_index].instantiate()
-	gangsta.caption = file.data.words[randi_range(0, file.data.words.size() - 1)]
+	var gangsta = gang.pick_random().instantiate()
+	var word = get_random_caption()
+	gangsta.word = word
+	get_parent().present_words.append(word)
 	(gangsta as CharacterBody2D).global_position = get_random_spawn_point().global_position
 	get_parent().call_deferred("add_child", gangsta)
+	gangsta.add_to_group("gang")
 	
 func _ready() -> void:
 	timer.stop()

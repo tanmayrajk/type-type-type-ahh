@@ -1,12 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://fg7se0blddx3"]
+[gd_scene load_steps=7 format=3 uid="uid://fg7se0blddx3"]
 
 [ext_resource type="PackedScene" uid="uid://bm3hnivstlo5d" path="res://scenes/player.tscn" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://b4s3cmvvj1o1w" path="res://scripts/manager.gd" id="1_tefeu"]
 [ext_resource type="Script" uid="uid://bi6iwh7jxljn5" path="res://scripts/player.gd" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://cg0xhuv0rq16x" path="res://scenes/runna.tscn" id="3_sugp2"]
 [ext_resource type="Script" uid="uid://dgwl7eyy11ij3" path="res://scenes/generator.gd" id="4_jyhfs"]
 [ext_resource type="JSON" path="res://english_1k.json" id="5_tbgi4"]
 
 [node name="main" type="Node2D"]
+script = ExtResource("1_tefeu")
 
 [node name="cam" type="Camera2D" parent="."]
 anchor_mode = 0
