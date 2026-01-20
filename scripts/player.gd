@@ -1,1 +1,43 @@
 extends CharacterBody2D
+
+@export var bullet_scene: PackedScene
+
+func _process(_delta: float) -> void:
+	if not get_parent().selected_word:
+		var closest: CharacterBody2D
+		var closest_distance := INF
+		for child in get_parent().get_children():
+			if child.is_in_group("gang"):
+				var dist = global_position.distance_squared_to(child.global_position)
+				if dist < closest_distance:
+					closest_distance = dist
+					closest = child
+		if not closest:
+			($weapon_pivot as Node2D).rotation_degrees = 0
+			return
+		if closest.global_position.x < global_position.x:
+			scale.x = -1
+		else:
+			scale.x = 1
+		$weapon_pivot.look_at(closest.global_position)
+	else:
+		for child in get_parent().get_children():
+			if child.is_in_group("gang"):
+				if child.word == get_parent().selected_word:
+					if child.global_position.x < global_position.x:
+						scale.x = -1
+					else:
+						scale.x = 1
+					$weapon_pivot.look_at(child.global_position)
+			if not child:
+				($weapon_pivot as Node2D).rotation_degrees = 0
+				return
+				
+func shoot(is_final_bullet := false):
+	$animation.play("shoot")
+	var bullet := bullet_scene.instantiate()
+	bullet.global_position = $weapon_pivot/muzzle.global_position
+	bullet.global_rotation = $weapon_pivot.global_rotation
+	bullet.target_word = get_parent().selected_word
+	bullet.is_final_bullet = is_final_bullet
+	get_tree().current_scene.add_child(bullet)

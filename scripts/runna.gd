@@ -1,36 +1,10 @@
-extends CharacterBody2D
+extends Gangsta
 
-@export var speed := 100.0
-
-var player: CharacterBody2D
-var word: String
-
-func _ready() -> void:
-	call_deferred("find_player")
-	$word_indicator.caption = word
-
-func _process(_delta: float) -> void:
-	if not player:
-		return
-	
-func _physics_process(_delta: float) -> void:
-	if not player:
-		return
-		
-	var dir = (player.global_position - global_position).normalized()
-	velocity = dir * speed
-	
-	$sprite.flip_h = !(dir.x > 0)
-	
-	move_and_slide()
-
-func find_player():
-	player = get_tree().get_first_node_in_group("player")
-	
-func set_caption(pos: int):
-	var lhs = word.substr(0, pos)
-	var rhs = word.substr(pos, word.length() - pos)
-	if not lhs:
-		$word_indicator.caption = word
-		return
-	$word_indicator.caption = "[color=b13e53]" + lhs + "[/color]" + rhs
+func _on_area_area_entered(area: Area2D) -> void:
+	if area.is_in_group("bullet") and area.target_word == word:
+		area.queue_free()
+		speed = 0
+		var t = get_tree().create_timer(0.1)
+		t.timeout.connect(func(): speed = 100)
+		if area.is_final_bullet:
+			queue_free()

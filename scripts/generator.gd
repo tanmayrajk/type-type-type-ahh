@@ -28,21 +28,25 @@ func get_random_caption() -> String:
 			
 	return possible_words.pick_random()
 	
-func spawn_gangsta():
-	var gangsta = gang.pick_random().instantiate()
+func spawn_gangsta(gangsta_index: int = -1):
+	var gangsta
+	if gangsta_index >= 0 and gangsta_index <= (gang.size() - 1):
+		gangsta = gang[gangsta_index].instantiate()
+	else:
+		gangsta = gang.pick_random().instantiate()
 	var word = get_random_caption()
 	gangsta.word = word
 	get_parent().present_words.append(word)
 	(gangsta as CharacterBody2D).global_position = get_random_spawn_point().global_position
-	get_parent().call_deferred("add_child", gangsta)
+	get_tree().current_scene.call_deferred("add_child", gangsta)
 	gangsta.add_to_group("gang")
 	
 func _ready() -> void:
 	timer.stop()
 	timer.one_shot = true
 	timer.autostart = false
-	spawn_gangsta()
-	timer.start()
+	#spawn_gangsta()
+	timer.start(1)
 	#print(file.data.words[0])
 
 func _on_spawn_timer_timeout() -> void:

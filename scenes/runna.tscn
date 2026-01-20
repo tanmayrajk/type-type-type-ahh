@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cg0xhuv0rq16x"]
+[gd_scene load_steps=10 format=3 uid="uid://cg0xhuv0rq16x"]
 
 [ext_resource type="Texture2D" uid="uid://dkbe84t8pych5" path="res://aseprites/enemy.png" id="1_4kbh3"]
 [ext_resource type="Script" uid="uid://dyu76esox6o0q" path="res://scripts/runna.gd" id="1_xhlqq"]
@@ -36,8 +36,12 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_5eqsq"]
 radius = 16.27882
 
-[node name="runna" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_4coog"]
+radius = 21.189621
+
+[node name="runna" type="CharacterBody2D" node_paths=PackedStringArray("word_indicator") groups=["gang"]]
 script = ExtResource("1_xhlqq")
+word_indicator = NodePath("word_indicator")
 metadata/_edit_lock_ = true
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
@@ -54,3 +58,11 @@ metadata/_edit_lock_ = true
 [node name="word_indicator" parent="." instance=ExtResource("3_4coog")]
 offset_top = -45.0
 offset_bottom = -45.0
+
+[node name="area" type="Area2D" parent="."]
+monitorable = false
+
+[node name="collider" type="CollisionShape2D" parent="area"]
+shape = SubResource("CircleShape2D_4coog")
+
+[connection signal="area_entered" from="area" to="." method="_on_area_area_entered"]

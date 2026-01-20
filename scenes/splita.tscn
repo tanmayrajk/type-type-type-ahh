@@ -1,0 +1,111 @@
+[gd_scene load_steps=14 format=3 uid="uid://d4e3a1putyn7m"]
+
+[ext_resource type="Script" uid="uid://k6go4glmolpg" path="res://scripts/splita.gd" id="1_6j0y1"]
+[ext_resource type="Texture2D" uid="uid://dijj4sliuvftr" path="res://aseprites/splita.png" id="2_6j0y1"]
+[ext_resource type="PackedScene" uid="uid://cg0xhuv0rq16x" path="res://scenes/runna.tscn" id="2_x016w"]
+[ext_resource type="PackedScene" uid="uid://mveqvxwy1d16" path="res://scenes/word_indicator.tscn" id="3_rmnfl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x016w"]
+atlas = ExtResource("2_6j0y1")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rmnfl"]
+atlas = ExtResource("2_6j0y1")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4ysp"]
+atlas = ExtResource("2_6j0y1")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujkir"]
+atlas = ExtResource("2_6j0y1")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o5fm0"]
+atlas = ExtResource("2_6j0y1")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ckkv2"]
+atlas = ExtResource("2_6j0y1")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_saiu5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x016w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rmnfl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4ysp")
+}],
+"loop": false,
+"name": &"break",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ujkir")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o5fm0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ckkv2")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 9.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6j0y1"]
+radius = 21.0
+height = 70.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x016w"]
+radius = 35.0
+height = 98.0
+
+[node name="splita" type="CharacterBody2D" node_paths=PackedStringArray("word_indicator") groups=["gang"]]
+script = ExtResource("1_6j0y1")
+runna_scene = ExtResource("2_x016w")
+speed = 70
+word_indicator = NodePath("word_indicator")
+metadata/_edit_lock_ = true
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_saiu5")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.6136701
+metadata/_edit_lock_ = true
+
+[node name="collider" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 8)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_6j0y1")
+
+[node name="word_indicator" parent="." instance=ExtResource("3_rmnfl")]
+offset_top = -57.0
+offset_bottom = -57.0
+
+[node name="spawn_points" type="Node2D" parent="."]
+
+[node name="1" type="Node2D" parent="spawn_points"]
+position = Vector2(-31, 10)
+
+[node name="2" type="Node2D" parent="spawn_points"]
+position = Vector2(32, 4)
+
+[node name="area" type="Area2D" parent="."]
+monitorable = false
+
+[node name="collider" type="CollisionShape2D" parent="area"]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_x016w")
+
+[connection signal="animation_finished" from="sprite" to="." method="_on_sprite_animation_finished"]
+[connection signal="area_entered" from="area" to="." method="_on_area_area_entered"]
