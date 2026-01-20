@@ -36,9 +36,10 @@ func set_caption(pos: int):
 	var lhs = word.substr(0, pos)
 	var rhs = word.substr(pos, word.length() - pos)
 	if not lhs:
-		word_indicator.caption = word
+		word_indicator.caption = word.to_lower()
 		return
 	word_indicator.caption = "[color=b13e53]" + lhs + "[/color]" + rhs
+	word_indicator.z_index = 6
 
 func get_hit():
 	print("GOT HIT")

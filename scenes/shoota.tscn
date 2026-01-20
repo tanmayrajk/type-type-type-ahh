@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bk4x65ehrf74x"]
+[gd_scene load_steps=18 format=3 uid="uid://bk4x65ehrf74x"]
 
 [ext_resource type="Script" uid="uid://8syen1m1kgg8" path="res://scripts/shoota.gd" id="1_30aws"]
 [ext_resource type="Texture2D" uid="uid://dacy43vgf04w7" path="res://aseprites/shoota.png" id="2_30aws"]
@@ -69,6 +69,43 @@ height = 80.0
 radius = 19.0
 height = 88.0
 
+[sub_resource type="Animation" id="Animation_rt270"]
+resource_name = "shoot"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(4, 0), Vector2(4, 0), Vector2(11, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_dc4f3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(11, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yjxu8"]
+_data = {
+&"RESET": SubResource("Animation_dc4f3"),
+&"shoot": SubResource("Animation_rt270")
+}
+
 [node name="shoota" type="CharacterBody2D" node_paths=PackedStringArray("word_indicator") groups=["gang"]]
 collision_layer = 2
 collision_mask = 5
@@ -113,5 +150,11 @@ metadata/_edit_lock_ = true
 
 [node name="muzzle" type="Node2D" parent="weapon_pivot"]
 position = Vector2(33, -5)
+
+[node name="animation" type="AnimationPlayer" parent="."]
+root_node = NodePath("../weapon_pivot/sprite")
+libraries = {
+&"": SubResource("AnimationLibrary_yjxu8")
+}
 
 [connection signal="area_entered" from="area" to="." method="_on_area_area_entered"]

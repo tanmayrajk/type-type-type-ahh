@@ -35,7 +35,7 @@ func _process(_delta: float) -> void:
 				return
 				
 func shoot(is_final_bullet := false):
-	#$animation.play("shoot")
+	$animation.play("shoot")
 	var bullet := bullet_scene.instantiate()
 	bullet.global_position = $weapon_pivot/muzzle.global_position
 	bullet.target_word = get_parent().selected_word
@@ -44,6 +44,7 @@ func shoot(is_final_bullet := false):
 	
 func die():
 	queue_free()
+
 
 func _on_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("gang"):

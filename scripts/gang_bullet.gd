@@ -3,6 +3,9 @@ extends Area2D
 @export var speed := 200.0
 var word: String
 
+var dir: Vector2
+var is_dir_set := false
+
 func _process(_delta: float) -> void:
 	$word_indicator.caption = word
 
@@ -12,8 +15,13 @@ func _physics_process(delta: float) -> void:
 		get_tree().current_scene.present_words.remove_at(get_tree().current_scene.present_words.find(word))
 		queue_free()
 		return
-	var dir = (player.global_position - global_position).normalized()
+	if not is_dir_set:
+		dir = (player.global_position - global_position).normalized()
 	position += dir * speed * delta
+	
+func set_dir(dir_vector: Vector2):
+	dir = dir_vector
+	is_dir_set = true
 	
 func set_caption(_pos: int = 1):
 	$word_indicator.caption = "[color=b13e53]" + word + "[/color]"
