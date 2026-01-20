@@ -1,0 +1,117 @@
+[gd_scene load_steps=15 format=3 uid="uid://bk4x65ehrf74x"]
+
+[ext_resource type="Script" uid="uid://8syen1m1kgg8" path="res://scripts/shoota.gd" id="1_30aws"]
+[ext_resource type="Texture2D" uid="uid://dacy43vgf04w7" path="res://aseprites/shoota.png" id="2_30aws"]
+[ext_resource type="PackedScene" uid="uid://bc660ic6wr8si" path="res://scenes/gang_bullet.tscn" id="2_rt270"]
+[ext_resource type="PackedScene" uid="uid://mveqvxwy1d16" path="res://scenes/word_indicator.tscn" id="3_rt270"]
+[ext_resource type="Texture2D" uid="uid://cmk48jx1xbwfm" path="res://aseprites/gun_enemy.png" id="4_xxeyt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xxeyt"]
+atlas = ExtResource("2_30aws")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rt270"]
+atlas = ExtResource("2_30aws")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dc4f3"]
+atlas = ExtResource("2_30aws")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yjxu8"]
+atlas = ExtResource("2_30aws")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kub7v"]
+atlas = ExtResource("2_30aws")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_30hli"]
+atlas = ExtResource("2_30aws")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_saiu5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xxeyt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rt270")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dc4f3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yjxu8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kub7v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_30hli")
+}],
+"loop": true,
+"name": &"run",
+"speed": 9.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_30aws"]
+radius = 11.0
+height = 80.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xxeyt"]
+radius = 19.0
+height = 88.0
+
+[node name="shoota" type="CharacterBody2D" node_paths=PackedStringArray("word_indicator") groups=["gang"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_30aws")
+bullet_scene = ExtResource("2_rt270")
+word_indicator = NodePath("word_indicator")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_saiu5")
+animation = &"run"
+autoplay = "run"
+metadata/_edit_lock_ = true
+
+[node name="collider" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(5, -3)
+shape = SubResource("CapsuleShape2D_30aws")
+
+[node name="word_indicator" parent="." instance=ExtResource("3_rt270")]
+offset_top = -68.0
+offset_bottom = -68.0
+
+[node name="area" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 5
+monitorable = false
+
+[node name="collider" type="CollisionShape2D" parent="area"]
+visible = false
+position = Vector2(5, 0)
+shape = SubResource("CapsuleShape2D_xxeyt")
+
+[node name="weapon_pivot" type="Node2D" parent="."]
+position = Vector2(0, 6)
+
+[node name="sprite" type="Sprite2D" parent="weapon_pivot"]
+position = Vector2(11, 0)
+scale = Vector2(3, 3)
+texture = ExtResource("4_xxeyt")
+metadata/_edit_lock_ = true
+
+[node name="muzzle" type="Node2D" parent="weapon_pivot"]
+position = Vector2(33, -5)
+
+[connection signal="area_entered" from="area" to="." method="_on_area_area_entered"]

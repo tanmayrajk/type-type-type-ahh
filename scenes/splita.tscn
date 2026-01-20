@@ -69,6 +69,8 @@ radius = 35.0
 height = 98.0
 
 [node name="splita" type="CharacterBody2D" node_paths=PackedStringArray("word_indicator") groups=["gang"]]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_6j0y1")
 runna_scene = ExtResource("2_x016w")
 speed = 70
@@ -101,6 +103,8 @@ position = Vector2(-31, 10)
 position = Vector2(32, 4)
 
 [node name="area" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 5
 monitorable = false
 
 [node name="collider" type="CollisionShape2D" parent="area"]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://fg7se0blddx3"]
+[gd_scene load_steps=8 format=3 uid="uid://fg7se0blddx3"]
 
 [ext_resource type="PackedScene" uid="uid://bm3hnivstlo5d" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://b4s3cmvvj1o1w" path="res://scripts/manager.gd" id="1_tefeu"]
 [ext_resource type="PackedScene" uid="uid://cg0xhuv0rq16x" path="res://scenes/runna.tscn" id="3_sugp2"]
 [ext_resource type="Script" uid="uid://dgwl7eyy11ij3" path="res://scripts/generator.gd" id="4_jyhfs"]
 [ext_resource type="JSON" path="res://english_1k.json" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://bk4x65ehrf74x" path="res://scenes/shoota.tscn" id="6_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://d4e3a1putyn7m" path="res://scenes/splita.tscn" id="6_tefeu"]
 
 [node name="main" type="Node2D"]
@@ -19,7 +20,7 @@ position = Vector2(387, 679)
 [node name="generator" type="Node2D" parent="." node_paths=PackedStringArray("spawn_points") groups=["generator"]]
 position = Vector2(387, -66)
 script = ExtResource("4_jyhfs")
-gang = Array[PackedScene]([ExtResource("3_sugp2"), ExtResource("6_tefeu")])
+gang = Array[PackedScene]([ExtResource("3_sugp2"), ExtResource("6_tefeu"), ExtResource("6_o6xl0")])
 spawn_points = [NodePath("1"), NodePath("2"), NodePath("3"), NodePath("4"), NodePath("5"), NodePath("6"), NodePath("7"), NodePath("8"), NodePath("9"), NodePath("10"), NodePath("11"), NodePath("12"), NodePath("13"), NodePath("14")]
 file = ExtResource("5_tbgi4")
 

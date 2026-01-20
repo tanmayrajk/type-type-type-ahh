@@ -6,11 +6,12 @@ class_name Gangsta
 
 var word: String
 var player: CharacterBody2D
-
+var dir: Vector2 = Vector2.ZERO
 var can_die := false
 
 func _ready() -> void:
 	player = find_player()
+	dir = Vector2.from_angle(randf() * TAU)
 	word_indicator.caption = word
 
 func _physics_process(_delta: float) -> void:
@@ -19,10 +20,11 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 
 func move_towards_player():
-	if not player:
-		return
+	if player:
+		dir = (player.global_position - global_position).normalized()
+	else:
+		pass
 		
-	var dir = (player.global_position - global_position).normalized()
 	velocity = dir * speed
 	
 	$sprite.flip_h = !(dir.x > 0)

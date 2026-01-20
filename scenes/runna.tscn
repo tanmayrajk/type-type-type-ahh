@@ -40,9 +40,10 @@ radius = 16.27882
 radius = 21.189621
 
 [node name="runna" type="CharacterBody2D" node_paths=PackedStringArray("word_indicator") groups=["gang"]]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_xhlqq")
 word_indicator = NodePath("word_indicator")
-metadata/_edit_lock_ = true
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(3, 3)
@@ -53,13 +54,14 @@ metadata/_edit_lock_ = true
 
 [node name="collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_5eqsq")
-metadata/_edit_lock_ = true
 
 [node name="word_indicator" parent="." instance=ExtResource("3_4coog")]
 offset_top = -45.0
 offset_bottom = -45.0
 
 [node name="area" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 5
 monitorable = false
 
 [node name="collider" type="CollisionShape2D" parent="area"]
