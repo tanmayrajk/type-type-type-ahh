@@ -37,7 +37,6 @@ func shoot(is_final_bullet := false):
 	$animation.play("shoot")
 	var bullet := bullet_scene.instantiate()
 	bullet.global_position = $weapon_pivot/muzzle.global_position
-	bullet.global_rotation = $weapon_pivot.global_rotation
 	bullet.target_word = get_parent().selected_word
 	bullet.is_final_bullet = is_final_bullet
 	get_tree().current_scene.add_child(bullet)
