@@ -15,6 +15,11 @@ run/main_scene="uid://fg7se0blddx3"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+WordManager="*res://scripts/word_manager.gd"
+GameState="*res://scripts/game_state.gd"
+
 [display]
 
 window/size/viewport_width=768

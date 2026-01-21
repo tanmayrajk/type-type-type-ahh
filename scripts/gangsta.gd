@@ -1,6 +1,7 @@
 extends CharacterBody2D
 class_name Gangsta
 
+@export var data: GangstaData
 @export var speed := 100
 @export var word_indicator : Control
 
@@ -9,10 +10,21 @@ var player: CharacterBody2D
 var dir: Vector2 = Vector2.ZERO
 var can_die := false
 
+var wm = WordManager
+
 func _ready() -> void:
 	player = find_player()
 	dir = Vector2.from_angle(randf() * TAU)
 	word_indicator.caption = word.to_lower()
+	
+	wm.word_advanced.connect(func(w, pos):
+		if word == w:
+			set_caption(pos))
+			
+	wm.word_finished.connect(func(w):
+		if word == w:
+			set_caption(w.length() - 1)
+			die())
 
 func _physics_process(_delta: float) -> void:
 	move_towards_player()

@@ -42,11 +42,7 @@ func move_to_point():
 func shoot():
 	if is_shooting and not force_final_shot: return
 	
-	var used_letters = get_tree().get_first_node_in_group("generator").get_used_letters()
-	var available_letters := range(26).map(func(i):
-		return String.chr(97 + i)).filter(func(c):
-			return not used_letters.has(c))
-	
+	var available_letters = WordManager.get_available_letters()
 	if available_letters.size() < 3: return
 	
 	is_shooting = true
@@ -64,7 +60,7 @@ func shoot():
 	var angles = [0, PI/4, -PI/4]
 	for angle in angles:
 		var bullet_word = available_letters.pick_random()
-		get_tree().current_scene.present_words.append(bullet_word)
+		wm.present_words.append(bullet_word)
 		var bullet := bullet_scene.instantiate()
 		bullet.global_position = $muzzle.global_position
 		bullet.word = bullet_word

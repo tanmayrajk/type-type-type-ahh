@@ -34,4 +34,7 @@ monitorable = false
 [node name="collider" type="CollisionShape2D" parent="area"]
 shape = SubResource("CircleShape2D_gv0uu")
 
+[node name="visibility" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-6, -6, 12, 12)
+
 [connection signal="area_entered" from="area" to="." method="_on_area_area_entered"]

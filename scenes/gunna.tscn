@@ -1,33 +1,34 @@
-[gd_scene load_steps=18 format=3 uid="uid://bk4x65ehrf74x"]
+[gd_scene load_steps=19 format=3 uid="uid://bk4x65ehrf74x"]
 
-[ext_resource type="Script" uid="uid://8syen1m1kgg8" path="res://scripts/shoota.gd" id="1_30aws"]
-[ext_resource type="Texture2D" uid="uid://dacy43vgf04w7" path="res://aseprites/shoota.png" id="2_30aws"]
-[ext_resource type="PackedScene" uid="uid://bc660ic6wr8si" path="res://scenes/gang_bullet.tscn" id="2_rt270"]
-[ext_resource type="PackedScene" uid="uid://mveqvxwy1d16" path="res://scenes/word_indicator.tscn" id="3_rt270"]
-[ext_resource type="Texture2D" uid="uid://cmk48jx1xbwfm" path="res://aseprites/gun_enemy.png" id="4_xxeyt"]
+[ext_resource type="Script" uid="uid://8syen1m1kgg8" path="res://scripts/gunna.gd" id="1_8jlas"]
+[ext_resource type="PackedScene" uid="uid://bc660ic6wr8si" path="res://scenes/gang_bullet.tscn" id="2_og0eo"]
+[ext_resource type="Texture2D" uid="uid://dacy43vgf04w7" path="res://aseprites/shoota.png" id="3_0ypjp"]
+[ext_resource type="Resource" uid="uid://b8vfpqlvnmki7" path="res://resources/gunna.tres" id="3_og0eo"]
+[ext_resource type="PackedScene" uid="uid://mveqvxwy1d16" path="res://scenes/word_indicator.tscn" id="4_m04eg"]
+[ext_resource type="Texture2D" uid="uid://cmk48jx1xbwfm" path="res://aseprites/gun_enemy.png" id="5_5uoqb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xxeyt"]
-atlas = ExtResource("2_30aws")
+atlas = ExtResource("3_0ypjp")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rt270"]
-atlas = ExtResource("2_30aws")
+atlas = ExtResource("3_0ypjp")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dc4f3"]
-atlas = ExtResource("2_30aws")
+atlas = ExtResource("3_0ypjp")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yjxu8"]
-atlas = ExtResource("2_30aws")
+atlas = ExtResource("3_0ypjp")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kub7v"]
-atlas = ExtResource("2_30aws")
+atlas = ExtResource("3_0ypjp")
 region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_30hli"]
-atlas = ExtResource("2_30aws")
+atlas = ExtResource("3_0ypjp")
 region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_saiu5"]
@@ -69,6 +70,21 @@ height = 80.0
 radius = 19.0
 height = 88.0
 
+[sub_resource type="Animation" id="Animation_dc4f3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(11, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_rt270"]
 resource_name = "shoot"
 length = 0.15
@@ -85,32 +101,18 @@ tracks/0/keys = {
 "values": [Vector2(4, 0), Vector2(4, 0), Vector2(11, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_dc4f3"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(11, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yjxu8"]
 _data = {
 &"RESET": SubResource("Animation_dc4f3"),
 &"shoot": SubResource("Animation_rt270")
 }
 
-[node name="shoota" type="CharacterBody2D" node_paths=PackedStringArray("word_indicator") groups=["gang"]]
+[node name="gunna" type="CharacterBody2D" node_paths=PackedStringArray("word_indicator") groups=["gang"]]
 collision_layer = 2
 collision_mask = 5
-script = ExtResource("1_30aws")
-bullet_scene = ExtResource("2_rt270")
+script = ExtResource("1_8jlas")
+bullet_scene = ExtResource("2_og0eo")
+data = ExtResource("3_og0eo")
 word_indicator = NodePath("word_indicator")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
@@ -125,7 +127,7 @@ visible = false
 position = Vector2(5, -3)
 shape = SubResource("CapsuleShape2D_30aws")
 
-[node name="word_indicator" parent="." instance=ExtResource("3_rt270")]
+[node name="word_indicator" parent="." instance=ExtResource("4_m04eg")]
 offset_top = -68.0
 offset_bottom = -68.0
 
@@ -145,7 +147,7 @@ position = Vector2(0, 6)
 [node name="sprite" type="Sprite2D" parent="weapon_pivot"]
 position = Vector2(11, 0)
 scale = Vector2(3, 3)
-texture = ExtResource("4_xxeyt")
+texture = ExtResource("5_5uoqb")
 metadata/_edit_lock_ = true
 
 [node name="muzzle" type="Node2D" parent="weapon_pivot"]

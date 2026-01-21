@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://d4e3a1putyn7m"]
+[gd_scene load_steps=15 format=3 uid="uid://d4e3a1putyn7m"]
 
 [ext_resource type="Script" uid="uid://k6go4glmolpg" path="res://scripts/splita.gd" id="1_6j0y1"]
 [ext_resource type="Texture2D" uid="uid://dijj4sliuvftr" path="res://aseprites/splita.png" id="2_6j0y1"]
 [ext_resource type="PackedScene" uid="uid://cg0xhuv0rq16x" path="res://scenes/runna.tscn" id="2_x016w"]
+[ext_resource type="Resource" uid="uid://btaonbe61apvv" path="res://resources/splita.tres" id="3_f4ysp"]
 [ext_resource type="PackedScene" uid="uid://mveqvxwy1d16" path="res://scenes/word_indicator.tscn" id="3_rmnfl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x016w"]
@@ -73,6 +74,7 @@ collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_6j0y1")
 runna_scene = ExtResource("2_x016w")
+data = ExtResource("3_f4ysp")
 speed = 70
 word_indicator = NodePath("word_indicator")
 metadata/_edit_lock_ = true

@@ -45,11 +45,7 @@ func move_to_point():
 func shoot():
 	if is_shooting: return
 	
-	var used_letters = get_tree().get_first_node_in_group("generator").get_used_letters()
-	var available_letters := range(26).map(func(i):
-		return String.chr(97 + i)).filter(func(c):
-			return not used_letters.has(c))
-			
+	var available_letters = WordManager.get_available_letters()
 	if available_letters.is_empty(): return
 	
 	is_shooting = true
@@ -57,7 +53,7 @@ func shoot():
 	$animation.play("shoot")
 	
 	var bullet_word = available_letters.pick_random()
-	get_tree().current_scene.present_words.append(bullet_word)
+	wm.present_words.append(bullet_word)
 	
 	var bullet := bullet_scene.instantiate()
 	bullet.global_position = $weapon_pivot/muzzle.global_position

@@ -1,4 +1,5 @@
 extends Node2D
+class_name Generator
 
 @export var gang: Array[GangData]
 @export var spawn_points: Array[Node2D] = []
@@ -6,40 +7,26 @@ extends Node2D
 
 @export var file: JSON
 
+var wm = WordManager
+
+func _ready() -> void:
+	wm.set_data(file.data.words)
+	timer.stop()
+	timer.one_shot = true
+	timer.autostart = false
+	timer.start(1)
+	
+func _on_spawn_timer_timeout() -> void:
+	spawn_gangsta()
+	timer.start(2)
+	
 func get_random_spawn_point() -> Node2D:
 	return spawn_points.pick_random()
-	
-func get_used_letters():
-	var present_words: Array[String] = get_parent().present_words
-		
-	var used_letters: Array[String] = []
-	print(present_words)
-	for word in present_words:
-		if word[0].to_lower() not in used_letters:
-			used_letters.append(word[0])
-			
-	return used_letters
-	
-func get_random_caption() -> String:
-	var present_words: Array[String] = get_parent().present_words
-	var words: Array = file.data.words
-	
-	if present_words.is_empty():
-		return words.pick_random()
-		
-	var used_letters = get_used_letters()
-			
-	var possible_words: Array[String] = []
-	for word in words:
-		if word[0].to_lower() not in used_letters:
-			possible_words.append(word)
-			
-	return "" if possible_words.is_empty() else possible_words.pick_random()
 
-func pick_random_gang_weighted():
+func pick_random_gang_weighted():	
 	var totaL_weight := 0
 	for g in gang:
-		totaL_weight += g.weight
+		totaL_weight += g.data.weight
 	
 	if totaL_weight <= 0:
 		return null
@@ -48,30 +35,20 @@ func pick_random_gang_weighted():
 	
 	var acc := 0.0
 	for g in gang:
-		acc += g.weight
+		acc += g.data.weight
 		if r <= acc:
 			return g
 
 func spawn_gangsta():
-	var gangsta = pick_random_gang_weighted().scene.instantiate()
-	var word = get_random_caption()
+	var gangsta = pick_random_gang_weighted()
+	var gangsta_scene = gangsta.scene.instantiate()
+	var word = wm.get_random_weighted_word(gangsta.data.min_word_weight, gangsta.data.max_word_weight)
 	if not word:
-		gangsta.queue_free()
+		gangsta_scene.queue_free()
 		return
-	gangsta.word = word
-	get_parent().present_words.append(word)
-	(gangsta as CharacterBody2D).global_position = get_random_spawn_point().global_position
-	get_tree().current_scene.call_deferred("add_child", gangsta)
-	gangsta.add_to_group("gang")
+	gangsta_scene.word = word
+	wm.present_words.append(word)
+	(gangsta_scene as CharacterBody2D).global_position = get_random_spawn_point().global_position
+	get_tree().current_scene.call_deferred("add_child", gangsta_scene)
+	gangsta_scene.add_to_group("gang")
 	
-func _ready() -> void:
-	timer.stop()
-	timer.one_shot = true
-	timer.autostart = false
-	#spawn_gangsta()
-	timer.start(1)
-	#print(file.data.words[0])
-
-func _on_spawn_timer_timeout() -> void:
-	spawn_gangsta()
-	timer.start(2)

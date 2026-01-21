@@ -8,13 +8,31 @@ var is_dir_set := false
 
 var can_die := false
 
+var player: CharacterBody2D
+
+var wm = WordManager
+
+func _ready() -> void:
+	$visibility.screen_exited.connect(func():
+		wm.present_words.erase(word)
+		queue_free(), CONNECT_ONE_SHOT)
+		
+	wm.word_advanced.connect(func(w, _pos):
+		if word == w:
+			set_caption())
+			
+	wm.word_finished.connect(func(w):
+		if word == w:
+			die())
+			
+	player = find_player()
+
 func _process(_delta: float) -> void:
 	$word_indicator.caption = word
 
 func _physics_process(delta: float) -> void:
-	var player = get_tree().get_first_node_in_group("player")
 	if not player:
-		get_tree().current_scene.present_words.remove_at(get_tree().current_scene.present_words.find(word))
+		wm.present_words.erase(word)
 		queue_free()
 		return
 	if not is_dir_set:
@@ -29,11 +47,12 @@ func set_caption(_pos: int = 1):
 	$word_indicator.caption = "[color=b13e53]" + word + "[/color]"
 
 func _on_area_area_entered(area: Area2D) -> void:
-	#print(area.target_word)
-	if (area.is_in_group("bullet") and not area.is_in_group("gang")) and area.target_word == word:
+	if ((area.is_in_group("bullet") and not area.is_in_group("gang"))) and area.target_word == word and area.is_final_bullet and can_die:
 		area.queue_free()
-		if area.is_final_bullet and can_die:
-			queue_free()
-			
+		queue_free()
+
+func find_player():
+	return get_tree().get_first_node_in_group("player")
+
 func die():
 	can_die = true

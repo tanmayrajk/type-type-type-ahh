@@ -3,20 +3,16 @@ extends Gangsta
 @export var runna_scene: PackedScene
 
 func _on_sprite_animation_finished() -> void:
-	var used_letters = get_tree().get_first_node_in_group("generator").get_used_letters()
-	var available_letters := range(26).map(func(i):
-		return String.chr(97 + i)).filter(func(c):
-			return not used_letters.has(c))
-			
+	var available_letters = wm.get_available_letters()
 	if available_letters.size() < 2: 
 		queue_free()
 		return
 		
 	for point in $spawn_points.get_children():
 		var runna = runna_scene.instantiate()
-		var runna_word = get_tree().get_first_node_in_group("generator").get_random_caption()
+		var runna_word = wm.get_random_weighted_word(data.min_word_weight, data.max_word_weight)
 		runna.word = runna_word
-		get_parent().present_words.append(runna_word)
+		wm.present_words.append(runna_word)
 		(runna as CharacterBody2D).global_position = point.global_position
 		get_tree().current_scene.call_deferred("add_child", runna)
 		runna.add_to_group("gang")

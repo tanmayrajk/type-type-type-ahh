@@ -1,8 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://cenm1kkrprt2k"]
+[gd_scene load_steps=17 format=3 uid="uid://cenm1kkrprt2k"]
 
 [ext_resource type="Script" uid="uid://birfc1kphf0va" path="res://scripts/big_steppa.gd" id="1_r54n5"]
 [ext_resource type="PackedScene" uid="uid://bc660ic6wr8si" path="res://scenes/gang_bullet.tscn" id="2_dogm8"]
 [ext_resource type="Texture2D" uid="uid://bi7nyciva16o6" path="res://aseprites/big-steppa.png" id="2_r54n5"]
+[ext_resource type="Resource" uid="uid://b5mo5ir1cnn8f" path="res://resources/big_steppa.tres" id="3_d5tx0"]
 [ext_resource type="PackedScene" uid="uid://mveqvxwy1d16" path="res://scenes/word_indicator.tscn" id="3_ex3pc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dogm8"]
@@ -90,6 +91,7 @@ collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_r54n5")
 bullet_scene = ExtResource("2_dogm8")
+data = ExtResource("3_d5tx0")
 word_indicator = NodePath("word_indicator")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]

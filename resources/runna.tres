@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="GangstaData" load_steps=2 format=3 uid="uid://qqbd3k6djtok"]
+
+[ext_resource type="Script" uid="uid://c81nwnn1hgi02" path="res://scripts/gangsta_data.gd" id="1_7p6b1"]
+
+[resource]
+script = ExtResource("1_7p6b1")
+name = "runna"
+metadata/_custom_type_script = "uid://c81nwnn1hgi02"
