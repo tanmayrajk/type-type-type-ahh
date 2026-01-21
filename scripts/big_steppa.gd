@@ -1,10 +1,12 @@
 extends Gangsta
 
-var point := Vector2(randf_range(150, 620), randf_range(200, 550))
+var point := Vector2(randf_range(150, 620), randf_range(90, 350))
 @export var bullet_scene : PackedScene
 
 var can_shoot := true
 var is_shooting := false
+var shooting_interrupted := false
+var force_final_shot := false
 
 func _physics_process(_delta: float) -> void:
 	move_to_point()
@@ -38,7 +40,7 @@ func move_to_point():
 	velocity = dir * speed
 	
 func shoot():
-	if is_shooting: return
+	if is_shooting and not force_final_shot: return
 	
 	var used_letters = get_tree().get_first_node_in_group("generator").get_used_letters()
 	var available_letters := range(26).map(func(i):
@@ -48,10 +50,15 @@ func shoot():
 	if available_letters.size() < 3: return
 	
 	is_shooting = true
+	shooting_interrupted = false
 	
-	$sprite.stop()
-	$sprite.play("shoot")
-	await $sprite.animation_finished
+	if not can_die and not force_final_shot:
+		$sprite.stop()
+		$sprite.play("shoot")
+		await $sprite.animation_finished
+		if shooting_interrupted and not force_final_shot:
+			is_shooting = false
+			return
 	
 	var base_dir = Vector2.DOWN
 	var angles = [0, PI/4, -PI/4]
@@ -62,7 +69,7 @@ func shoot():
 		bullet.global_position = $muzzle.global_position
 		bullet.word = bullet_word
 		bullet.set_dir(base_dir.rotated(angle))
-		get_tree().current_scene.add_child(bullet)
+		get_tree().current_scene.call_deferred("add_child", bullet)
 	
 	is_shooting = false
 	
@@ -72,5 +79,11 @@ func _on_area_area_entered(area: Area2D) -> void:
 		speed = 0
 		var t = get_tree().create_timer(0.1)
 		t.timeout.connect(func(): speed = 100)
-		if area.is_final_bullet:
-			queue_free()
+		if area.is_final_bullet and can_die:
+			if is_shooting:
+				shooting_interrupted = true
+				$sprite.stop()
+			force_final_shot = true
+			await shoot()
+			force_final_shot = false
+			call_deferred("queue_free")

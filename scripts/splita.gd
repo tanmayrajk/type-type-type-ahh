@@ -3,6 +3,15 @@ extends Gangsta
 @export var runna_scene: PackedScene
 
 func _on_sprite_animation_finished() -> void:
+	var used_letters = get_tree().get_first_node_in_group("generator").get_used_letters()
+	var available_letters := range(26).map(func(i):
+		return String.chr(97 + i)).filter(func(c):
+			return not used_letters.has(c))
+			
+	if available_letters.size() < 2: 
+		queue_free()
+		return
+		
 	for point in $spawn_points.get_children():
 		var runna = runna_scene.instantiate()
 		var runna_word = get_tree().get_first_node_in_group("generator").get_random_caption()
@@ -19,5 +28,5 @@ func _on_area_area_entered(area: Area2D) -> void:
 		speed = 0
 		var t = get_tree().create_timer(0.1)
 		t.timeout.connect(func(): speed = 100)
-		if area.is_final_bullet:
+		if area.is_final_bullet and can_die:
 			$sprite.play("break")

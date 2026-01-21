@@ -12,7 +12,7 @@ var can_die := false
 func _ready() -> void:
 	player = find_player()
 	dir = Vector2.from_angle(randf() * TAU)
-	word_indicator.caption = word
+	word_indicator.caption = word.to_lower()
 
 func _physics_process(_delta: float) -> void:
 	move_towards_player()

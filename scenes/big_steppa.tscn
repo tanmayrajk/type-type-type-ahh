@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cenm1kkrprt2k"]
+[gd_scene load_steps=16 format=3 uid="uid://cenm1kkrprt2k"]
 
 [ext_resource type="Script" uid="uid://birfc1kphf0va" path="res://scripts/big_steppa.gd" id="1_r54n5"]
 [ext_resource type="PackedScene" uid="uid://bc660ic6wr8si" path="res://scenes/gang_bullet.tscn" id="2_dogm8"]
@@ -37,10 +37,6 @@ region = Rect2(192, 0, 32, 32)
 atlas = ExtResource("2_r54n5")
 region = Rect2(224, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_emkys"]
-atlas = ExtResource("2_r54n5")
-region = Rect2(256, 0, 32, 32)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_saiu5"]
 animations = [{
 "frames": [{
@@ -77,9 +73,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qlbhk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_emkys")
 }],
 "loop": false,
 "name": &"shoot",

@@ -30,6 +30,7 @@ func _input(event: InputEvent) -> void:
 					selected_word = word
 					current_pos = 1
 					present_words.remove_at(present_words.find(selected_word))
+					slime_gansta(selected_word)
 					update_caption(current_pos)
 					player[0].shoot(true)
 					selected_word = ""

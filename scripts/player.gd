@@ -35,6 +35,7 @@ func _process(_delta: float) -> void:
 				return
 				
 func shoot(is_final_bullet := false):
+	#print(is_final_bullet)
 	$animation.play("shoot")
 	var bullet := bullet_scene.instantiate()
 	bullet.global_position = $weapon_pivot/muzzle.global_position
