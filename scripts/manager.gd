@@ -2,7 +2,10 @@ extends Node2D
 
 var wm = WordManager
 
+@export var file: JSON
+
 func _ready() -> void:
+	wm.set_data(file.data.words)
 	randomize()
 
 func _input(event: InputEvent) -> void:

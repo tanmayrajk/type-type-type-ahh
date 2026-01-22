@@ -1,6 +1,7 @@
 extends Gangsta
 
 @export var runna_scene: PackedScene
+@export var runna_res: Resource
 
 func _on_sprite_animation_finished() -> void:
 	var available_letters = wm.get_available_letters()
@@ -10,7 +11,7 @@ func _on_sprite_animation_finished() -> void:
 		
 	for point in $spawn_points.get_children():
 		var runna = runna_scene.instantiate()
-		var runna_word = wm.get_random_weighted_word(data.min_word_weight, data.max_word_weight)
+		var runna_word = wm.get_random_weighted_word(runna_res.min_word_weight, runna_res.max_word_weight)
 		runna.word = runna_word
 		wm.present_words.append(runna_word)
 		(runna as CharacterBody2D).global_position = point.global_position

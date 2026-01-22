@@ -16,10 +16,10 @@ func move_to_point():
 		return
 
 	if player:
-		$sprite.flip_h = !(player.global_position.x > global_position.x)
-		$weapon_pivot/sprite.flip_v = !(player.global_position.x > global_position.x)
-		$weapon_pivot.look_at(player.global_position)
 		if global_position.distance_to(point) < 5:
+			$sprite.flip_h = !(player.global_position.x > global_position.x)
+			$weapon_pivot/sprite.flip_v = !(player.global_position.x > global_position.x)
+			$weapon_pivot.look_at(player.global_position)
 			velocity = Vector2.ZERO
 			$sprite.play("idle")
 			if can_shoot:
@@ -31,12 +31,11 @@ func move_to_point():
 		else:
 			scale.x = 1
 			dir = (point - global_position).normalized()
-	else:
-		$weapon_pivot.rotation_degrees = 0
-		$weapon_pivot/sprite.flip_v = !(dir.x > 0)
-		$weapon_pivot.rotation_degrees = 0 if dir.x > 0 else 180
-		$sprite.flip_h = !(dir.x > 0)
-		pass
+			
+	$weapon_pivot.rotation_degrees = 0
+	$weapon_pivot/sprite.flip_v = !(dir.x > 0)
+	$weapon_pivot.rotation_degrees = 0 if dir.x > 0 else 180
+	$sprite.flip_h = !(dir.x > 0)
 		
 	$sprite.play("run")
 		

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://fg7se0blddx3"]
+[gd_scene load_steps=23 format=3 uid="uid://fg7se0blddx3"]
 
 [ext_resource type="PackedScene" uid="uid://bm3hnivstlo5d" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://b4s3cmvvj1o1w" path="res://scripts/manager.gd" id="1_tefeu"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cenm1kkrprt2k" path="res://scenes/big_steppa.tscn" id="7_tipki"]
 [ext_resource type="Resource" uid="uid://btaonbe61apvv" path="res://resources/splita.tres" id="9_jkv2x"]
 [ext_resource type="Resource" uid="uid://b5mo5ir1cnn8f" path="res://resources/big_steppa.tres" id="11_jbj1t"]
+[ext_resource type="Script" uid="uid://dlstd88vlei24" path="res://scripts/spawn_data.gd" id="14_a8y0u"]
 
 [sub_resource type="Resource" id="Resource_muem4"]
 script = ExtResource("4_tbgi4")
@@ -38,8 +39,40 @@ scene = ExtResource("7_tipki")
 data = ExtResource("11_jbj1t")
 metadata/_custom_type_script = "uid://bgonl4lo0uub0"
 
+[sub_resource type="Resource" id="Resource_jkv2x"]
+script = ExtResource("14_a8y0u")
+name = "runna"
+increment = 0.07
+min_rate = 0.5
+metadata/_custom_type_script = "uid://dlstd88vlei24"
+
+[sub_resource type="Resource" id="Resource_jbj1t"]
+script = ExtResource("14_a8y0u")
+name = "gunna"
+initial_rate = 0.0
+increment = 0.07
+max_rate = 0.6
+metadata/_custom_type_script = "uid://dlstd88vlei24"
+
+[sub_resource type="Resource" id="Resource_yc10j"]
+script = ExtResource("14_a8y0u")
+name = "splita"
+initial_rate = 0.0
+increment = 0.05
+max_rate = 0.7
+metadata/_custom_type_script = "uid://dlstd88vlei24"
+
+[sub_resource type="Resource" id="Resource_jscy8"]
+script = ExtResource("14_a8y0u")
+name = "big_steppa"
+initial_rate = 0.0
+increment = 0.03
+max_rate = 0.6
+metadata/_custom_type_script = "uid://dlstd88vlei24"
+
 [node name="main" type="Node2D"]
 script = ExtResource("1_tefeu")
+file = ExtResource("5_tbgi4")
 
 [node name="cam" type="Camera2D" parent="."]
 anchor_mode = 0
@@ -48,11 +81,11 @@ anchor_mode = 0
 position = Vector2(387, 679)
 
 [node name="generator" type="Node2D" parent="." node_paths=PackedStringArray("spawn_points") groups=["generator"]]
-position = Vector2(387, -66)
+position = Vector2(387, -15)
 script = ExtResource("4_jyhfs")
 gang = Array[ExtResource("4_tbgi4")]([SubResource("Resource_muem4"), SubResource("Resource_dp3eg"), SubResource("Resource_0ld40"), SubResource("Resource_gqmmt")])
 spawn_points = [NodePath("1"), NodePath("2"), NodePath("3"), NodePath("4"), NodePath("5"), NodePath("6"), NodePath("7"), NodePath("8"), NodePath("9"), NodePath("10"), NodePath("11"), NodePath("12"), NodePath("13"), NodePath("14")]
-file = ExtResource("5_tbgi4")
+wave_data = Array[ExtResource("14_a8y0u")]([SubResource("Resource_jkv2x"), SubResource("Resource_jbj1t"), SubResource("Resource_yc10j"), SubResource("Resource_jscy8")])
 
 [node name="1" type="Node2D" parent="generator"]
 position = Vector2(-351, -1)
@@ -95,7 +128,3 @@ position = Vector2(300, 0)
 
 [node name="14" type="Node2D" parent="generator"]
 position = Vector2(350, 0)
-
-[node name="spawn_timer" type="Timer" parent="generator"]
-
-[connection signal="timeout" from="generator/spawn_timer" to="generator" method="_on_spawn_timer_timeout"]

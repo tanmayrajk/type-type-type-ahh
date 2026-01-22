@@ -1,5 +1,6 @@
 extends Node
 
+signal data_processed
 signal word_selected(word: String)
 signal word_advanced(word: String, pos: int)
 signal word_finished(word: String)
@@ -12,6 +13,7 @@ var current_pos: int
 
 func set_data(arr: Array):
 	data = index_data(arr.filter(func(a): return typeof(a) == TYPE_STRING))
+	emit_signal("data_processed")
 
 func index_data(arr: Array):
 	var indexed: Array[String] = []
