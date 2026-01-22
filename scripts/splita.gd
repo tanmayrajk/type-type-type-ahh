@@ -3,6 +3,8 @@ extends Gangsta
 @export var runna_scene: PackedScene
 @export var runna_res: Resource
 
+var gs = GameState
+
 func _on_sprite_animation_finished() -> void:
 	var available_letters = wm.get_available_letters()
 	if available_letters.size() < 2: 
@@ -26,4 +28,5 @@ func _on_area_area_entered(area: Area2D) -> void:
 		var t = get_tree().create_timer(0.1)
 		t.timeout.connect(func(): speed = 100)
 		if area.is_final_bullet and can_die:
+			gs.increment_score(data.score)
 			$sprite.play("break")

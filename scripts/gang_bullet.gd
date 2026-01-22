@@ -1,6 +1,7 @@
 extends Area2D
 
 @export var speed := 200.0
+@export var score := 50
 var word: String
 
 var dir: Vector2
@@ -11,6 +12,7 @@ var can_die := false
 var player: CharacterBody2D
 
 var wm = WordManager
+var gs = GameState
 
 func _ready() -> void:
 	$visibility.screen_exited.connect(func():
@@ -48,6 +50,7 @@ func set_caption(_pos: int = 1):
 
 func _on_area_area_entered(area: Area2D) -> void:
 	if ((area.is_in_group("bullet") and not area.is_in_group("gang"))) and area.target_word == word and area.is_final_bullet and can_die:
+		gs.increment_score(score)
 		area.queue_free()
 		queue_free()
 

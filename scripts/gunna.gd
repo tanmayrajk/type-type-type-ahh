@@ -6,6 +6,8 @@ var point := Vector2(randf_range(150, 620), randf_range(90, 350))
 var can_shoot = true
 var is_shooting := false
 
+var gs = GameState
+
 func _physics_process(_delta: float) -> void:
 	move_to_point()
 	move_and_slide()
@@ -68,4 +70,5 @@ func _on_area_area_entered(area: Area2D) -> void:
 		var t = get_tree().create_timer(0.1)
 		t.timeout.connect(func(): speed = 100)
 		if area.is_final_bullet and can_die:
+			gs.increment_score(data.score)
 			queue_free()

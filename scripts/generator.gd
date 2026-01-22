@@ -2,6 +2,7 @@ extends Node2D
 class_name Generator
 
 var wm = WordManager
+var gs = GameState
 
 @export var gang: Array[GangData]
 @export var spawn_points: Array[Node2D] = []
@@ -14,24 +15,22 @@ var count_increment_min := 1
 @export_range(1, 10)
 var count_increment_max := 4
 
-var current_wave = 1
 var current_rate: Array[CurrentRateData]
 var current_gang_count = initial_gang_count
 
-var is_wave_running = false
 var wave_start_queued = false
 
 func end_wave():
 	current_gang_count += randi_range(count_increment_min, count_increment_max)
-	current_wave += 1
+	gs.current_wave += 1
 	for i in range(wave_data.size()):
 		if wave_data[i].name == current_rate[i].name:
 			current_rate[i].rate = wave_data[i].increment
-	is_wave_running = false
+	gs.is_wave_running = false
 
 func start_wave():
-	is_wave_running = true
-	print(current_wave)
+	gs.is_wave_running = true
+	print(gs.current_wave)
 	for i in range(current_gang_count):
 		spawn_gangsta()
 		await get_tree().create_timer(1).timeout
@@ -48,15 +47,11 @@ func _ready() -> void:
 		
 func _process(_delta: float) -> void:
 	var present_gang = get_parent().get_children().filter(func(c): return c.is_in_group("gang"))
-	if not is_wave_running and not wave_start_queued and present_gang.size() == 0:
+	if not gs.is_wave_running and not wave_start_queued and present_gang.size() == 0:
 		wave_start_queued = true
 		await get_tree().create_timer(2).timeout
 		start_wave()
 		wave_start_queued = false
-		
-#func _on_spawn_timer_timeout() -> void:
-	#spawn_gangsta()
-	#timer.start(2)
 	
 func get_random_spawn_point() -> Node2D:
 	return spawn_points.pick_random()

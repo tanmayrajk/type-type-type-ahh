@@ -43,14 +43,14 @@ metadata/_custom_type_script = "uid://bgonl4lo0uub0"
 script = ExtResource("14_a8y0u")
 name = "runna"
 increment = 0.07
-min_rate = 0.5
+min_rate = 0.7
 metadata/_custom_type_script = "uid://dlstd88vlei24"
 
 [sub_resource type="Resource" id="Resource_jbj1t"]
 script = ExtResource("14_a8y0u")
 name = "gunna"
 initial_rate = 0.0
-increment = 0.07
+increment = 0.045
 max_rate = 0.6
 metadata/_custom_type_script = "uid://dlstd88vlei24"
 
@@ -58,7 +58,7 @@ metadata/_custom_type_script = "uid://dlstd88vlei24"
 script = ExtResource("14_a8y0u")
 name = "splita"
 initial_rate = 0.0
-increment = 0.05
+increment = 0.025
 max_rate = 0.7
 metadata/_custom_type_script = "uid://dlstd88vlei24"
 

@@ -8,3 +8,4 @@ var name: String
 var min_word_weight: float = 0.0
 @export_range(0.0, 1.0)
 var max_word_weight: float = 1.0
+@export var score: int = 100
