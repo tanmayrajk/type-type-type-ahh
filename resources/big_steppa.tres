@@ -7,4 +7,5 @@ script = ExtResource("1_d3x2f")
 name = "big_steppa"
 min_word_weight = 0.4
 max_word_weight = 0.7
+score = 250
 metadata/_custom_type_script = "uid://c81nwnn1hgi02"

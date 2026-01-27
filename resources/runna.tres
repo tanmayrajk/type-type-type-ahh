@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_7p6b1")
 name = "runna"
-max_word_weight = 0.45
+max_word_weight = 0.35
 metadata/_custom_type_script = "uid://c81nwnn1hgi02"

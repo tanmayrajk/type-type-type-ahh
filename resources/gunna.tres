@@ -7,4 +7,5 @@ script = ExtResource("1_16nww")
 name = "gunna"
 min_word_weight = 0.2
 max_word_weight = 0.6
+score = 200
 metadata/_custom_type_script = "uid://c81nwnn1hgi02"

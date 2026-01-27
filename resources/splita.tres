@@ -6,4 +6,5 @@
 script = ExtResource("1_575dq")
 name = "splita"
 min_word_weight = 0.7
+score = 350
 metadata/_custom_type_script = "uid://c81nwnn1hgi02"

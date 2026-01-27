@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dacy43vgf04w7"
-path="res://.godot/imported/shoota.png-b23c2152a77921571271bb1e13c6eee5.ctex"
+uid="uid://bx0ej4xpi64ks"
+path="res://.godot/imported/runna.png-5ecab3d918f691370eb194d7951e3d53.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://aseprites/shoota.png"
-dest_files=["res://.godot/imported/shoota.png-b23c2152a77921571271bb1e13c6eee5.ctex"]
+source_file="res://aseprites/runna.png"
+dest_files=["res://.godot/imported/runna.png-5ecab3d918f691370eb194d7951e3d53.ctex"]
 
 [params]
 

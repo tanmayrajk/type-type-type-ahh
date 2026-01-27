@@ -29,4 +29,4 @@ func _on_area_area_entered(area: Area2D) -> void:
 		t.timeout.connect(func(): speed = 100)
 		if area.is_final_bullet and can_die:
 			gs.increment_score(data.score)
-			$sprite.play("break")
+			$sprite.play("die")

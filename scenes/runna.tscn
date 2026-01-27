@@ -1,23 +1,53 @@
-[gd_scene load_steps=11 format=3 uid="uid://cg0xhuv0rq16x"]
+[gd_scene load_steps=23 format=3 uid="uid://conq5433nsxbp"]
 
-[ext_resource type="Texture2D" uid="uid://dkbe84t8pych5" path="res://aseprites/enemy.png" id="1_4kbh3"]
-[ext_resource type="Script" uid="uid://dyu76esox6o0q" path="res://scripts/runna.gd" id="1_xhlqq"]
+[ext_resource type="Script" uid="uid://dntxu6lpoh4ah" path="res://scripts/runna.gd" id="1_xhlqq"]
 [ext_resource type="Resource" uid="uid://qqbd3k6djtok" path="res://resources/runna.tres" id="2_udq7x"]
 [ext_resource type="PackedScene" uid="uid://mveqvxwy1d16" path="res://scenes/word_indicator.tscn" id="3_4coog"]
+[ext_resource type="Script" uid="uid://ckh2pqbb4up67" path="res://scripts/state_machine.gd" id="3_saiu5"]
+[ext_resource type="Texture2D" uid="uid://bx0ej4xpi64ks" path="res://aseprites/runna.png" id="3_udq7x"]
+[ext_resource type="Script" uid="uid://1x1ycbikmn47" path="res://scripts/move_state.gd" id="5_saiu5"]
+[ext_resource type="Script" uid="uid://7ey7txsjjbax" path="res://scripts/hit_state.gd" id="6_b7vct"]
+[ext_resource type="Script" uid="uid://0y75a6c4be4n" path="res://scripts/die_state.gd" id="7_11q3q"]
+[ext_resource type="Script" uid="uid://1sft5ksxa4mv" path="res://scripts/chase_movement.gd" id="9_qxxlp"]
+[ext_resource type="Script" uid="uid://b5ru1urcvhcmj" path="res://scripts/wander_movement.gd" id="10_48pbi"]
+
+[sub_resource type="Resource" id="Resource_48pbi"]
+script = ExtResource("9_qxxlp")
+metadata/_custom_type_script = "uid://1sft5ksxa4mv"
+
+[sub_resource type="Resource" id="Resource_2ga7w"]
+script = ExtResource("10_48pbi")
+metadata/_custom_type_script = "uid://b5ru1urcvhcmj"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xhlqq"]
-atlas = ExtResource("1_4kbh3")
-region = Rect2(0, 0, 32, 32)
+atlas = ExtResource("3_udq7x")
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4coog"]
-atlas = ExtResource("1_4kbh3")
-region = Rect2(32, 0, 32, 32)
+atlas = ExtResource("3_udq7x")
+region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_udq7x"]
-atlas = ExtResource("1_4kbh3")
+atlas = ExtResource("3_udq7x")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_saiu5"]
+atlas = ExtResource("3_udq7x")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5eqsq"]
+atlas = ExtResource("3_udq7x")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7vct"]
+atlas = ExtResource("3_udq7x")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_11q3q"]
+atlas = ExtResource("3_udq7x")
 region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_saiu5"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_qxxlp"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -29,44 +59,83 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_udq7x")
 }],
+"loop": false,
+"name": &"die",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_saiu5")
+}],
 "loop": true,
-"name": &"default",
+"name": &"hurt",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5eqsq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b7vct")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_11q3q")
+}],
+"loop": true,
+"name": &"move",
 "speed": 9.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_5eqsq"]
-radius = 16.27882
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_48pbi"]
+radius = 13.0
+height = 38.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_4coog"]
-radius = 21.189621
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2ga7w"]
+radius = 15.0
+height = 44.0
 
-[node name="runna" type="CharacterBody2D" node_paths=PackedStringArray("word_indicator") groups=["gang"]]
+[node name="runna" type="CharacterBody2D" node_paths=PackedStringArray("hit_state", "colliders") groups=["gang"]]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_xhlqq")
+alive_movement = SubResource("Resource_48pbi")
+dead_movement = SubResource("Resource_2ga7w")
+hit_state = NodePath("state_machine/hit")
+colliders = [NodePath("collider"), NodePath("area/collider")]
 data = ExtResource("2_udq7x")
-word_indicator = NodePath("word_indicator")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(3, 3)
-sprite_frames = SubResource("SpriteFrames_saiu5")
-autoplay = "default"
-frame_progress = 0.3402954
-metadata/_edit_lock_ = true
+sprite_frames = SubResource("SpriteFrames_qxxlp")
+animation = &"hurt"
+autoplay = "move"
 
 [node name="collider" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_5eqsq")
-
-[node name="word_indicator" parent="." instance=ExtResource("3_4coog")]
-offset_top = -45.0
-offset_bottom = -45.0
+shape = SubResource("CapsuleShape2D_48pbi")
 
 [node name="area" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 5
-monitorable = false
 
 [node name="collider" type="CollisionShape2D" parent="area"]
-shape = SubResource("CircleShape2D_4coog")
+shape = SubResource("CapsuleShape2D_2ga7w")
 
-[connection signal="area_entered" from="area" to="." method="_on_area_area_entered"]
+[node name="word_indicator" parent="." instance=ExtResource("3_4coog")]
+offset_top = -43.0
+offset_bottom = -43.0
+
+[node name="state_machine" type="Node2D" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_saiu5")
+initial_state = NodePath("move")
+
+[node name="move" type="Node2D" parent="state_machine"]
+script = ExtResource("5_saiu5")
+looping = true
+
+[node name="hit" type="Node2D" parent="state_machine" node_paths=PackedStringArray("move_state", "die_state")]
+script = ExtResource("6_b7vct")
+move_state = NodePath("../move")
+die_state = NodePath("../die")
+
+[node name="die" type="Node2D" parent="state_machine"]
+script = ExtResource("7_11q3q")

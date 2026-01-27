@@ -1,162 +1,197 @@
-[gd_scene load_steps=19 format=3 uid="uid://bk4x65ehrf74x"]
+[gd_scene load_steps=30 format=3 uid="uid://5jfjcegk4itb"]
 
-[ext_resource type="Script" uid="uid://8syen1m1kgg8" path="res://scripts/gunna.gd" id="1_8jlas"]
+[ext_resource type="Script" uid="uid://cyb326e22su5v" path="res://scripts/gunna.gd" id="1_8jlas"]
+[ext_resource type="Script" uid="uid://b5ru1urcvhcmj" path="res://scripts/wander_movement.gd" id="2_5uoqb"]
 [ext_resource type="PackedScene" uid="uid://bc660ic6wr8si" path="res://scenes/gang_bullet.tscn" id="2_og0eo"]
-[ext_resource type="Texture2D" uid="uid://dacy43vgf04w7" path="res://aseprites/shoota.png" id="3_0ypjp"]
-[ext_resource type="Resource" uid="uid://b8vfpqlvnmki7" path="res://resources/gunna.tres" id="3_og0eo"]
+[ext_resource type="Script" uid="uid://c8o383xugs1p4" path="res://scripts/random_point_movement.gd" id="2_xm7ir"]
+[ext_resource type="Texture2D" uid="uid://dacy43vgf04w7" path="res://aseprites/gunna.png" id="3_0ypjp"]
+[ext_resource type="Script" uid="uid://c81nwnn1hgi02" path="res://scripts/gangsta_data.gd" id="4_gq55o"]
 [ext_resource type="PackedScene" uid="uid://mveqvxwy1d16" path="res://scenes/word_indicator.tscn" id="4_m04eg"]
 [ext_resource type="Texture2D" uid="uid://cmk48jx1xbwfm" path="res://aseprites/gun_enemy.png" id="5_5uoqb"]
+[ext_resource type="Script" uid="uid://ckh2pqbb4up67" path="res://scripts/state_machine.gd" id="5_rfr1p"]
+[ext_resource type="Script" uid="uid://1x1ycbikmn47" path="res://scripts/move_state.gd" id="6_gq55o"]
+[ext_resource type="Script" uid="uid://7ey7txsjjbax" path="res://scripts/hit_state.gd" id="7_05cmy"]
+[ext_resource type="Script" uid="uid://0y75a6c4be4n" path="res://scripts/die_state.gd" id="8_o6xm2"]
+[ext_resource type="Script" uid="uid://cb35urxocm41b" path="res://scripts/shoot_state.gd" id="10_rfr1p"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xxeyt"]
+[sub_resource type="Resource" id="Resource_rfr1p"]
+script = ExtResource("2_xm7ir")
+speed = 125
+metadata/_custom_type_script = "uid://c8o383xugs1p4"
+
+[sub_resource type="Resource" id="Resource_xm7ir"]
+script = ExtResource("2_5uoqb")
+speed = 125
+metadata/_custom_type_script = "uid://b5ru1urcvhcmj"
+
+[sub_resource type="Resource" id="Resource_05cmy"]
+script = ExtResource("4_gq55o")
+name = "gunna"
+metadata/_custom_type_script = "uid://c81nwnn1hgi02"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m04eg"]
 atlas = ExtResource("3_0ypjp")
-region = Rect2(0, 0, 32, 32)
+region = Rect2(192, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rt270"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5uoqb"]
 atlas = ExtResource("3_0ypjp")
-region = Rect2(32, 0, 32, 32)
+region = Rect2(224, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dc4f3"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_xm7ir"]
 atlas = ExtResource("3_0ypjp")
-region = Rect2(64, 0, 32, 32)
+region = Rect2(256, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_yjxu8"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfr1p"]
+atlas = ExtResource("3_0ypjp")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_guywm"]
 atlas = ExtResource("3_0ypjp")
 region = Rect2(96, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kub7v"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_6frsi"]
 atlas = ExtResource("3_0ypjp")
 region = Rect2(128, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_30hli"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_fql8n"]
 atlas = ExtResource("3_0ypjp")
 region = Rect2(160, 0, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_saiu5"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gq55o"]
+atlas = ExtResource("3_0ypjp")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_05cmy"]
+atlas = ExtResource("3_0ypjp")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o6xm2"]
+atlas = ExtResource("3_0ypjp")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qxxlp"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xxeyt")
+"texture": SubResource("AtlasTexture_m04eg")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rt270")
+"texture": SubResource("AtlasTexture_5uoqb")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dc4f3")
+"texture": SubResource("AtlasTexture_xm7ir")
 }],
-"loop": true,
-"name": &"idle",
+"loop": false,
+"name": &"die",
 "speed": 9.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_yjxu8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kub7v")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_30hli")
+"texture": SubResource("AtlasTexture_rfr1p")
 }],
 "loop": true,
-"name": &"run",
+"name": &"hurt",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_guywm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6frsi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fql8n")
+}],
+"loop": true,
+"name": &"move",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gq55o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_05cmy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o6xm2")
+}],
+"loop": true,
+"name": &"shoot",
 "speed": 9.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_30aws"]
-radius = 11.0
-height = 80.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_48pbi"]
+radius = 20.0
+height = 82.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xxeyt"]
-radius = 19.0
-height = 88.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2ga7w"]
+radius = 22.0
+height = 86.0
 
-[sub_resource type="Animation" id="Animation_dc4f3"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(11, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_rt270"]
-resource_name = "shoot"
-length = 0.15
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.15),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(4, 0), Vector2(4, 0), Vector2(11, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_yjxu8"]
-_data = {
-&"RESET": SubResource("Animation_dc4f3"),
-&"shoot": SubResource("Animation_rt270")
-}
-
-[node name="gunna" type="CharacterBody2D" node_paths=PackedStringArray("word_indicator") groups=["gang"]]
+[node name="gunna" type="CharacterBody2D" node_paths=PackedStringArray("shoot_state", "move_state", "hit_state", "colliders") groups=["gang"]]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_8jlas")
-bullet_scene = ExtResource("2_og0eo")
-data = ExtResource("3_og0eo")
-word_indicator = NodePath("word_indicator")
+shoot_state = NodePath("state_machine/shoot")
+move_state = NodePath("state_machine/move")
+x_extents = Array[float]([83.0, 681.0])
+y_extents = Array[float]([170.0, 491.0])
+alive_movement = SubResource("Resource_rfr1p")
+dead_movement = SubResource("Resource_xm7ir")
+hit_state = NodePath("state_machine/hit")
+colliders = [NodePath("collider"), NodePath("area/collider")]
+data = SubResource("Resource_05cmy")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(3, 3)
-sprite_frames = SubResource("SpriteFrames_saiu5")
-animation = &"run"
-autoplay = "run"
-metadata/_edit_lock_ = true
+sprite_frames = SubResource("SpriteFrames_qxxlp")
+animation = &"die"
 
 [node name="collider" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2(5, -3)
-shape = SubResource("CapsuleShape2D_30aws")
-
-[node name="word_indicator" parent="." instance=ExtResource("4_m04eg")]
-offset_top = -68.0
-offset_bottom = -68.0
+shape = SubResource("CapsuleShape2D_48pbi")
 
 [node name="area" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 5
-monitorable = false
 
 [node name="collider" type="CollisionShape2D" parent="area"]
 visible = false
-position = Vector2(5, 0)
-shape = SubResource("CapsuleShape2D_xxeyt")
+shape = SubResource("CapsuleShape2D_2ga7w")
 
-[node name="weapon_pivot" type="Node2D" parent="."]
-position = Vector2(0, 6)
+[node name="word_indicator" parent="." instance=ExtResource("4_m04eg")]
+offset_top = -64.0
+offset_bottom = -64.0
 
-[node name="sprite" type="Sprite2D" parent="weapon_pivot"]
-position = Vector2(11, 0)
+[node name="state_machine" type="Node2D" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("5_rfr1p")
+initial_state = NodePath("move")
+
+[node name="move" type="Node2D" parent="state_machine"]
+script = ExtResource("6_gq55o")
+
+[node name="hit" type="Node2D" parent="state_machine" node_paths=PackedStringArray("move_state", "die_state")]
+script = ExtResource("7_05cmy")
+move_state = NodePath("../move")
+die_state = NodePath("../die")
+
+[node name="die" type="Node2D" parent="state_machine"]
+script = ExtResource("8_o6xm2")
+
+[node name="shoot" type="Node2D" parent="state_machine" node_paths=PackedStringArray("move_state")]
+script = ExtResource("10_rfr1p")
+looping = true
+move_state = NodePath("../move")
+bullet_scene = ExtResource("2_og0eo")
+
+[node name="gun_pivot" type="Node2D" parent="."]
+
+[node name="sprite" type="Sprite2D" parent="gun_pivot"]
+position = Vector2(14, 0)
 scale = Vector2(3, 3)
 texture = ExtResource("5_5uoqb")
-metadata/_edit_lock_ = true
 
-[node name="muzzle" type="Node2D" parent="weapon_pivot"]
-position = Vector2(33, -5)
-
-[node name="animation" type="AnimationPlayer" parent="."]
-root_node = NodePath("../weapon_pivot/sprite")
-libraries = {
-&"": SubResource("AnimationLibrary_yjxu8")
-}
-
-[connection signal="area_entered" from="area" to="." method="_on_area_area_entered"]
+[node name="muzzle" type="Node2D" parent="gun_pivot"]
+position = Vector2(33, -4)

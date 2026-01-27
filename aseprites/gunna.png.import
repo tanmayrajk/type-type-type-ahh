@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dkbe84t8pych5"
-path="res://.godot/imported/enemy.png-7afd9f5fb5063adfa7ba6d624af97dd8.ctex"
+uid="uid://dacy43vgf04w7"
+path="res://.godot/imported/gunna.png-e129cee613f98d2a5d226754d2463545.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://aseprites/enemy.png"
-dest_files=["res://.godot/imported/enemy.png-7afd9f5fb5063adfa7ba6d624af97dd8.ctex"]
+source_file="res://aseprites/gunna.png"
+dest_files=["res://.godot/imported/gunna.png-e129cee613f98d2a5d226754d2463545.ctex"]
 
 [params]
 

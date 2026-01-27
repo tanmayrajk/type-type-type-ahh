@@ -1,73 +1,37 @@
-[gd_scene load_steps=23 format=3 uid="uid://fg7se0blddx3"]
+[gd_scene load_steps=15 format=3 uid="uid://fg7se0blddx3"]
 
 [ext_resource type="PackedScene" uid="uid://bm3hnivstlo5d" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://b4s3cmvvj1o1w" path="res://scripts/manager.gd" id="1_tefeu"]
-[ext_resource type="PackedScene" uid="uid://cg0xhuv0rq16x" path="res://scenes/runna.tscn" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://conq5433nsxbp" path="res://scenes/runna.tscn" id="3_sugp2"]
 [ext_resource type="Script" uid="uid://dgwl7eyy11ij3" path="res://scripts/generator.gd" id="4_jyhfs"]
 [ext_resource type="Script" uid="uid://bgonl4lo0uub0" path="res://scripts/gang_data.gd" id="4_tbgi4"]
 [ext_resource type="JSON" path="res://english_1k.json" id="5_tbgi4"]
 [ext_resource type="Resource" uid="uid://qqbd3k6djtok" path="res://resources/runna.tres" id="5_trceg"]
-[ext_resource type="PackedScene" uid="uid://bk4x65ehrf74x" path="res://scenes/gunna.tscn" id="6_o6xl0"]
-[ext_resource type="PackedScene" uid="uid://d4e3a1putyn7m" path="res://scenes/splita.tscn" id="6_tefeu"]
+[ext_resource type="PackedScene" uid="uid://5jfjcegk4itb" path="res://scenes/gunna.tscn" id="6_o6xl0"]
 [ext_resource type="Resource" uid="uid://b8vfpqlvnmki7" path="res://resources/gunna.tres" id="7_a8y0u"]
-[ext_resource type="PackedScene" uid="uid://cenm1kkrprt2k" path="res://scenes/big_steppa.tscn" id="7_tipki"]
-[ext_resource type="Resource" uid="uid://btaonbe61apvv" path="res://resources/splita.tres" id="9_jkv2x"]
-[ext_resource type="Resource" uid="uid://b5mo5ir1cnn8f" path="res://resources/big_steppa.tres" id="11_jbj1t"]
 [ext_resource type="Script" uid="uid://dlstd88vlei24" path="res://scripts/spawn_data.gd" id="14_a8y0u"]
 
-[sub_resource type="Resource" id="Resource_muem4"]
+[sub_resource type="Resource" id="Resource_o6xl0"]
 script = ExtResource("4_tbgi4")
 scene = ExtResource("3_sugp2")
 data = ExtResource("5_trceg")
 metadata/_custom_type_script = "uid://bgonl4lo0uub0"
 
-[sub_resource type="Resource" id="Resource_dp3eg"]
+[sub_resource type="Resource" id="Resource_choun"]
 script = ExtResource("4_tbgi4")
 scene = ExtResource("6_o6xl0")
 data = ExtResource("7_a8y0u")
 metadata/_custom_type_script = "uid://bgonl4lo0uub0"
 
-[sub_resource type="Resource" id="Resource_0ld40"]
-script = ExtResource("4_tbgi4")
-scene = ExtResource("6_tefeu")
-data = ExtResource("9_jkv2x")
-metadata/_custom_type_script = "uid://bgonl4lo0uub0"
-
-[sub_resource type="Resource" id="Resource_gqmmt"]
-script = ExtResource("4_tbgi4")
-scene = ExtResource("7_tipki")
-data = ExtResource("11_jbj1t")
-metadata/_custom_type_script = "uid://bgonl4lo0uub0"
-
-[sub_resource type="Resource" id="Resource_jkv2x"]
+[sub_resource type="Resource" id="Resource_tipki"]
 script = ExtResource("14_a8y0u")
 name = "runna"
-increment = 0.07
-min_rate = 0.7
+increment = 0.0
 metadata/_custom_type_script = "uid://dlstd88vlei24"
 
-[sub_resource type="Resource" id="Resource_jbj1t"]
+[sub_resource type="Resource" id="Resource_ya4ey"]
 script = ExtResource("14_a8y0u")
-name = "gunna"
-initial_rate = 0.0
-increment = 0.045
-max_rate = 0.6
-metadata/_custom_type_script = "uid://dlstd88vlei24"
-
-[sub_resource type="Resource" id="Resource_yc10j"]
-script = ExtResource("14_a8y0u")
-name = "splita"
-initial_rate = 0.0
-increment = 0.025
-max_rate = 0.7
-metadata/_custom_type_script = "uid://dlstd88vlei24"
-
-[sub_resource type="Resource" id="Resource_jscy8"]
-script = ExtResource("14_a8y0u")
-name = "big_steppa"
-initial_rate = 0.0
-increment = 0.03
-max_rate = 0.6
+increment = 0.0
 metadata/_custom_type_script = "uid://dlstd88vlei24"
 
 [node name="main" type="Node2D"]
@@ -83,9 +47,9 @@ position = Vector2(387, 679)
 [node name="generator" type="Node2D" parent="." node_paths=PackedStringArray("spawn_points") groups=["generator"]]
 position = Vector2(387, -15)
 script = ExtResource("4_jyhfs")
-gang = Array[ExtResource("4_tbgi4")]([SubResource("Resource_muem4"), SubResource("Resource_dp3eg"), SubResource("Resource_0ld40"), SubResource("Resource_gqmmt")])
+gang = Array[ExtResource("4_tbgi4")]([SubResource("Resource_o6xl0"), SubResource("Resource_choun")])
 spawn_points = [NodePath("1"), NodePath("2"), NodePath("3"), NodePath("4"), NodePath("5"), NodePath("6"), NodePath("7"), NodePath("8"), NodePath("9"), NodePath("10"), NodePath("11"), NodePath("12"), NodePath("13"), NodePath("14")]
-wave_data = Array[ExtResource("14_a8y0u")]([SubResource("Resource_jkv2x"), SubResource("Resource_jbj1t"), SubResource("Resource_yc10j"), SubResource("Resource_jscy8")])
+wave_data = Array[ExtResource("14_a8y0u")]([SubResource("Resource_tipki"), SubResource("Resource_ya4ey")])
 
 [node name="1" type="Node2D" parent="generator"]
 position = Vector2(-351, -1)

@@ -1,74 +1,37 @@
 extends Gangsta
 
-var point := Vector2(randf_range(150, 620), randf_range(90, 350))
-@export var bullet_scene : PackedScene
+@onready var muzzle := $gun_pivot/muzzle
 
-var can_shoot = true
-var is_shooting := false
+@export var shoot_state : State
+@export var move_state : State
+@export var x_extents : Array[float]
+@export var y_extents: Array[float]
 
-var gs = GameState
+var facing_dir := 1
+var target_point: Vector2 = Vector2.ZERO
+var has_target := false
+var arrived := false
 
-func _physics_process(_delta: float) -> void:
-	move_to_point()
-	move_and_slide()
-
-func move_to_point():
-	if is_shooting:
-		velocity = Vector2.ZERO
-		return
-
-	if player:
-		if global_position.distance_to(point) < 5:
-			$sprite.flip_h = !(player.global_position.x > global_position.x)
-			$weapon_pivot/sprite.flip_v = !(player.global_position.x > global_position.x)
-			$weapon_pivot.look_at(player.global_position)
-			velocity = Vector2.ZERO
-			$sprite.play("idle")
-			if can_shoot:
-				shoot()
-				can_shoot = false
-				var timer = get_tree().create_timer(2)
-				timer.timeout.connect(func(): can_shoot = true)
-			return
-		else:
-			scale.x = 1
-			dir = (point - global_position).normalized()
+func set_facing_dir_from_velocity():
+	if velocity.x != 0:
+		facing_dir = sign(velocity.x)
+	
+	if velocity.x == 0 and state_machine.current_state == shoot_state and player:
+		facing_dir = 1 if player.global_position.x > global_position.x else -1
+		
+	$sprite.flip_h = facing_dir < 0
+	
+	if state_machine.current_state != shoot_state:
+		$gun_pivot.rotation_degrees = 0 if facing_dir > 0 else 180
+		if (facing_dir > 0 and sign($gun_pivot/sprite.scale.y) < 0) or (facing_dir < 0 and sign($gun_pivot/sprite.scale.y) > 0):
+			$gun_pivot/sprite.scale.y *= -1
+	else:
+		if player:
+			$gun_pivot.look_at(player.global_position)
 			
-	$weapon_pivot.rotation_degrees = 0
-	$weapon_pivot/sprite.flip_v = !(dir.x > 0)
-	$weapon_pivot.rotation_degrees = 0 if dir.x > 0 else 180
-	$sprite.flip_h = !(dir.x > 0)
-		
-	$sprite.play("run")
-		
-	velocity = dir * speed
-	
-func shoot():
-	if is_shooting: return
-	
-	var available_letters = WordManager.get_available_letters()
-	if available_letters.is_empty(): return
-	
-	is_shooting = true
-	
-	$animation.play("shoot")
-	
-	var bullet_word = available_letters.pick_random()
-	wm.present_words.append(bullet_word)
-	
-	var bullet := bullet_scene.instantiate()
-	bullet.global_position = $weapon_pivot/muzzle.global_position
-	bullet.word = bullet_word
-	get_tree().current_scene.add_child(bullet)
-	
-	is_shooting = false
+	#if not player and not is_dead and state_machine.current_state != move_state:
+		#state_machine.change_state(move_state)
 
-func _on_area_area_entered(area: Area2D) -> void:
-	if (area.is_in_group("bullet") and not area.is_in_group("gang")) and area.target_word == word:
-		area.queue_free()
-		speed = 0
-		var t = get_tree().create_timer(0.1)
-		t.timeout.connect(func(): speed = 100)
-		if area.is_final_bullet and can_die:
-			gs.increment_score(data.score)
-			queue_free()
+func _physics_process(delta: float) -> void:
+	state_machine.physics_update(delta)
+	set_facing_dir_from_velocity()
