@@ -1,11 +1,20 @@
 [gd_scene load_steps=17 format=3 uid="uid://d4e3a1putyn7m"]
 
-[ext_resource type="Script" uid="uid://k6go4glmolpg" path="res://scripts/splita_old.gd" id="1_6j0y1"]
+[ext_resource type="Script" uid="uid://dcyo54mny8cw4" path="res://scripts/splita.gd" id="1_6j0y1"]
 [ext_resource type="Texture2D" uid="uid://dijj4sliuvftr" path="res://aseprites/splita.png" id="2_6j0y1"]
-[ext_resource type="PackedScene" uid="uid://cg0xhuv0rq16x" path="res://scenes/runna_old.tscn" id="2_x016w"]
-[ext_resource type="Resource" uid="uid://btaonbe61apvv" path="res://resources/splita.tres" id="3_f4ysp"]
+[ext_resource type="PackedScene" uid="uid://cg0xhuv0rq16x" path="res://scenes/runna.tscn" id="2_x016w"]
+[ext_resource type="Script" uid="uid://c81nwnn1hgi02" path="res://scripts/gangsta_data.gd" id="3_f4ysp"]
 [ext_resource type="PackedScene" uid="uid://mveqvxwy1d16" path="res://scenes/word_indicator.tscn" id="3_rmnfl"]
-[ext_resource type="Resource" uid="uid://qqbd3k6djtok" path="res://resources/runna.tres" id="3_ujkir"]
+
+[sub_resource type="Resource" id="Resource_ujkir"]
+script = ExtResource("3_f4ysp")
+name = "runna"
+metadata/_custom_type_script = "uid://c81nwnn1hgi02"
+
+[sub_resource type="Resource" id="Resource_o5fm0"]
+script = ExtResource("3_f4ysp")
+name = "splita"
+metadata/_custom_type_script = "uid://c81nwnn1hgi02"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x016w"]
 atlas = ExtResource("2_6j0y1")
@@ -18,10 +27,6 @@ region = Rect2(128, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_f4ysp"]
 atlas = ExtResource("2_6j0y1")
 region = Rect2(160, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a3h3h"]
-atlas = ExtResource("2_6j0y1")
-region = Rect2(192, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ujkir"]
 atlas = ExtResource("2_6j0y1")
@@ -53,14 +58,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_a3h3h")
-}],
-"loop": true,
-"name": &"hurt",
-"speed": 9.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_ujkir")
 }, {
 "duration": 1.0,
@@ -87,16 +84,15 @@ collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_6j0y1")
 runna_scene = ExtResource("2_x016w")
-runna_res = ExtResource("3_ujkir")
-data = ExtResource("3_f4ysp")
-speed = 70
+runna_res = SubResource("Resource_ujkir")
+data = SubResource("Resource_o5fm0")
 word_indicator = NodePath("word_indicator")
 metadata/_edit_lock_ = true
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_saiu5")
-animation = &"run"
+animation = &"die"
 autoplay = "run"
 metadata/_edit_lock_ = true
 

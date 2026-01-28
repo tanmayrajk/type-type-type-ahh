@@ -1,6 +1,6 @@
 [gd_scene load_steps=23 format=3 uid="uid://bk4x65ehrf74x"]
 
-[ext_resource type="Script" uid="uid://8syen1m1kgg8" path="res://scripts/gunna_old.gd" id="1_8jlas"]
+[ext_resource type="Script" uid="uid://8syen1m1kgg8" path="res://scripts/OLD STUFF/gunna_old.gd" id="1_8jlas"]
 [ext_resource type="PackedScene" uid="uid://bc660ic6wr8si" path="res://scenes/gang_bullet.tscn" id="2_og0eo"]
 [ext_resource type="Texture2D" uid="uid://dacy43vgf04w7" path="res://aseprites/gunna.png" id="3_0ypjp"]
 [ext_resource type="Resource" uid="uid://b8vfpqlvnmki7" path="res://resources/gunna.tres" id="3_og0eo"]
@@ -19,7 +19,7 @@ region = Rect2(224, 0, 32, 32)
 atlas = ExtResource("3_0ypjp")
 region = Rect2(256, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5uoqb"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1cyra"]
 atlas = ExtResource("3_0ypjp")
 region = Rect2(288, 0, 32, 32)
 
@@ -65,7 +65,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5uoqb")
+"texture": SubResource("AtlasTexture_1cyra")
 }],
 "loop": true,
 "name": &"hurt",
@@ -156,9 +156,8 @@ word_indicator = NodePath("word_indicator")
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_saiu5")
-animation = &"run"
+animation = &"hurt"
 autoplay = "run"
-frame_progress = 0.63131857
 metadata/_edit_lock_ = true
 
 [node name="collider" type="CollisionShape2D" parent="."]

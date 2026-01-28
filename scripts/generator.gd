@@ -73,6 +73,7 @@ func pick_random_gang_weighted():
 			return gang[i]
 
 func spawn_gangsta():
+	if gang.size() <= 0: return
 	var gangsta = pick_random_gang_weighted()
 	var gangsta_scene = gangsta.scene.instantiate()
 	var word = wm.get_random_weighted_word(gangsta.data.min_word_weight, gangsta.data.max_word_weight)

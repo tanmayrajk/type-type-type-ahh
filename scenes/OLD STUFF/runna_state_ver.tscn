@@ -1,0 +1,80 @@
+[gd_scene load_steps=11 format=3 uid="uid://conq5433nsxbp"]
+
+[ext_resource type="Script" path="res://scripts/runna/runna.gd" id="1_wnt47"]
+[ext_resource type="PackedScene" uid="uid://mveqvxwy1d16" path="res://scenes/word_indicator.tscn" id="3_4coog"]
+[ext_resource type="Script" uid="uid://ckh2pqbb4up67" path="res://scripts/OLD STUFF/state_machine.gd" id="3_saiu5"]
+[ext_resource type="Texture2D" uid="uid://bx0ej4xpi64ks" path="res://aseprites/runna.png" id="3_udq7x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5eqsq"]
+atlas = ExtResource("3_udq7x")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7vct"]
+atlas = ExtResource("3_udq7x")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_11q3q"]
+atlas = ExtResource("3_udq7x")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qxxlp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5eqsq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b7vct")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_11q3q")
+}],
+"loop": true,
+"name": &"move",
+"speed": 9.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_48pbi"]
+radius = 13.0
+height = 38.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2ga7w"]
+radius = 15.0
+height = 44.0
+
+[node name="runna" type="CharacterBody2D" groups=["gang"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_wnt47")
+speed = null
+knockback_strength = null
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_qxxlp")
+animation = &"move"
+autoplay = "move"
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_48pbi")
+
+[node name="area" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 5
+
+[node name="collider" type="CollisionShape2D" parent="area"]
+shape = SubResource("CapsuleShape2D_2ga7w")
+
+[node name="word_indicator" parent="." instance=ExtResource("3_4coog")]
+offset_top = -43.0
+offset_bottom = -43.0
+
+[node name="state_machine" type="Node2D" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_saiu5")
+initial_state = NodePath("move")
+
+[node name="move" type="Node2D" parent="state_machine"]
+
+[node name="hit" type="Node2D" parent="state_machine"]
+
+[node name="die" type="Node2D" parent="state_machine"]
